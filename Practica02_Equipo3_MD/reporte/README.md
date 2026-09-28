@@ -1,6 +1,6 @@
 # reporte
 
-`Reporte_Practica02_Equipo3.docx` es el reporte final de la práctica, con la estructura que
+`Reporte_Practica02_Equipo3.docx` es el reporte final de la práctica (``VER EN DRIVE PRACTICA 02``), con la estructura que
 pide el enunciado: Autores, Introducción, Desarrollo, Resultados de calidad y Conclusiones
 (no usa el formato de CRISP-DM, ver `README.md` en la raíz del repositorio).
 

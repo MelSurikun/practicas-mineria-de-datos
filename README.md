@@ -2,6 +2,8 @@
 
 Repositorio correspondiente a las prácticas realizadas durante el semestre en la **Unidad de Aprendizaje de Minería de Datos**.
 
+``TODOS LOS CAMBIOS SE REALIZAN EN LA RAMA MAIN``
+
 ## Información general
 
 | Información               | Detalle                     |
