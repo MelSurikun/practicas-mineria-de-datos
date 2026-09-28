@@ -1,0 +1,28 @@
+# De la PRACTICA02
+Practica02_Equipo3_MD/Covid_Muestras/*.csv
+Practica02_Equipo3_MD/Covid_Muestras/*.rar
+Practica02_Equipo3_MD/Covid_Muestras/*.zip
+Practica02_Equipo3_MD/**/*.docx
+Ejemplo/
+Entregable_Profesor/
+
+# Archivos que puedan contener contraseñas o credenciales
+*.env
+*password*
+*credencial*
+*.pgpass
+
+# Salidas / temporales
+*.log
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+
+# Entornos / notebooks
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Editor
+.vscode/
