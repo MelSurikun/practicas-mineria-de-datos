@@ -45,10 +45,11 @@ con su propio `README.md` adentro, cada integrante coloca ahí los CSV por su cu
 Practica02_Equipo3_MD/
 ├── README.md            : este archivo
 ├── GUIA_POSTGRESQL.md   : cómo verificar la instalación y probar la carga de datos
+├── GUIA_INTERFAZ_GRAFICA.md : la misma carga documentada con pgAdmin y con SSMS
 ├── .gitignore           : excluye los CSV pesados, el material del curso y cualquier credencial
 ├── Covid_Muestras/      : dónde va cada CSV, y todo el detalle del dataset (los CSV en sí no se suben)
 ├── Diccionario_Datos/   : catálogos y descriptor de columnas, necesarios para reproducir el proceso
-├── sql/                 : scripts de creación de BD, stages, ingesta, tipado y consolidación
+├── sql/                 : scripts de creación de BD, stages, ingesta, tipado, consolidación, catálogos y anomalías
 ├── evidencias/          : inspección de archivos, bitácora de errores, conteos
 ├── graficas/            : visualizaciones exportadas (PNG), también embebidas en el reporte
 ├── scripts/             : scripts de Python auxiliares (inspección, reparación de CSV, gráficas)
@@ -78,7 +79,14 @@ suben a git por su tamaño).
    `TRY_CONVERT` de SQL Server) sin sobrescribir el valor original del stage:
    `sql/04_tipado.sql`.
 5. Consolidar ambos periodos y resolver duplicados por `ID_REGISTRO`: `sql/05_consolidacion.sql`.
-6. Generar las visualizaciones del reporte: `python scripts/graficar.py`.
+6. Cargar los catálogos de referencia (entidad, municipio, sector), necesarios para las
+   Gráficas 3 y 6 y para el análisis de dependencias entre atributos:
+   `python scripts/exportar_catalogos.py` y luego `sql/06_catalogos.sql`.
+7. Crear la vista de validación cruzada entre atributos: `sql/07_anomalias.sql`.
+8. Generar las visualizaciones del reporte: `python scripts/graficar.py`.
+
+La misma carga, documentada con interfaz gráfica en vez de línea de comandos (pgAdmin y
+SSMS), está en `GUIA_INTERFAZ_GRAFICA.md`.
 
 No se incluyen contraseñas, llaves ni credenciales en ningún script ni captura.
 
@@ -110,10 +118,15 @@ Basado en la repartición acordada por el equipo.
 - Sección 5, consolidación de todos los archivos en la tabla histórica, verificación de
   conteos contra los CSV de origen, revisión de duplicados por `ID_REGISTRO`.
 - Visualizaciones para todo el reporte (porcentaje de nulos por columna, top países y
-  municipios, distribución de edad).
-- **Entrega:** scripts SQL de creación, ingesta, tipado y consolidación, tabla de inspección
-  de archivos, bitácora de errores, evidencia de conteos, criterio de duplicados,
-  visualizaciones.
+  municipios con nombre, distribución de edad, distribución de edad con umbrales de
+  atípicos, demora por sector).
+- Catálogos de referencia (entidad, municipio, sector) y la vista de validación cruzada
+  entre atributos, más la sección "Preparación para el modelo multidimensional" del reporte
+  (esquema estrella y tabla de anomalías de consistencia lógica).
+- Guía de carga con interfaz gráfica (`GUIA_INTERFAZ_GRAFICA.md`), pgAdmin y SSMS.
+- **Entrega:** scripts SQL de creación, ingesta, tipado, consolidación, catálogos y
+  anomalías, tabla de inspección de archivos, bitácora de errores, evidencia de conteos,
+  criterio de duplicados, visualizaciones, guía de interfaz gráfica.
 
 ### Santiago, Machine Learning y Arquitectura
 
