@@ -1,0 +1,266 @@
+// Modelo multidimensional, Práctica 3, Equipo 3. Generado desde el catálogo de PostgreSQL.
+// Pegar en https://dbdiagram.io para verlo y editarlo.
+
+Table dw.fact_casos_covid {
+  id_fact_covid bigint [pk, note: 'Llave sustituta de la fila de hechos.']
+  id_registro varchar(10) [unique, not null, note: 'ID_REGISTRO, dimensión degenerada: identifica el caso y permite volver a covid_historica.']
+  id_fecha_sintomas integer [not null, note: 'FECHA_SINTOMAS → dim_tiempo (rol: inicio de síntomas).']
+  id_fecha_ingreso integer [not null, note: 'FECHA_INGRESO → dim_tiempo (rol: ingreso a la unidad).']
+  id_fecha_resultado integer [not null, note: 'FECHA_RESULTADO → dim_tiempo (rol: resultado). -1 en 2022 (no existe la columna); -2 sin resultado (9999-99-99).']
+  id_fecha_defuncion integer [not null, note: 'FECHA_DEF → dim_tiempo (rol: defunción). -2 si no hubo defunción (9999-99-99).']
+  id_ubicacion_residencia integer [not null, note: 'ENTIDAD_RES + MUNICIPIO_RES → dim_ubicacion.']
+  id_entidad_nacimiento smallint [not null, note: 'ENTIDAD_NAC → dim_entidad.']
+  id_unidad_medica integer [not null, note: 'CLUES, SECTOR, ENTIDAD_UM y MUNICIPIO_UM → dim_unidad_medica.']
+  id_paciente smallint [not null, note: 'SEXO, EMBARAZO, HABLA_LENGUA_INDIG, INDIGENA, NACIONALIDAD y MIGRANTE → dim_paciente.']
+  id_pais_nacionalidad smallint [not null, note: 'PAIS_NACIONALIDAD → dim_pais (rol: nacionalidad).']
+  id_pais_origen smallint [not null, note: 'PAIS_ORIGEN → dim_pais (rol: país de origen del migrante).']
+  id_edad smallint [not null, note: 'EDAD → dim_edad (la edad tal como viene, incluso 122).']
+  id_comorbilidad integer [not null, note: 'Las 10 banderas de comorbilidad y tabaquismo → dim_comorbilidad.']
+  id_atencion smallint [not null, note: 'ORIGEN, TIPO_PACIENTE, NEUMONIA, INTUBADO y UCI → dim_atencion.']
+  id_diagnostico smallint [not null, note: 'OTRO_CASO, TOMA_MUESTRA_LAB, RESULTADO_LAB, TOMA_MUESTRA_ANTIGENO, RESULTADO_ANTIGENO y CLASIFICACION_FINAL → dim_diagnostico.']
+  id_extracto smallint [not null, note: 'archivo_origen y FECHA_ACTUALIZACION → dim_extracto.']
+  id_calidad smallint [not null, note: 'Banderas de calidad calculadas en la carga → dim_calidad.']
+  casos smallint [not null, note: 'Siempre 1. Sumado da el número de casos (medida aditiva).']
+  confirmados smallint [not null, note: '1 si CLASIFICACION_FINAL es 1, 2 o 3 (aditiva).']
+  hospitalizados smallint [not null, note: '1 si TIPO_PACIENTE = 2 (aditiva).']
+  ingresos_uci smallint [not null, note: '1 si UCI = 1 (aditiva).']
+  intubados smallint [not null, note: '1 si INTUBADO = 1 (aditiva).']
+  con_neumonia smallint [not null, note: '1 si NEUMONIA = 1 (aditiva).']
+  defunciones smallint [not null, note: '1 si hay FECHA_DEF (aditiva). Letalidad entre confirmados = sum(defunciones * confirmados) / sum(confirmados): solo cuentan las defunciones de casos confirmados.']
+  edad_anios smallint [note: 'EDAD como medida (no aditiva: promedio, mediana). NULL cuando la edad no es válida (122).']
+  dias_sintomas_a_ingreso smallint [note: 'FECHA_INGRESO - FECHA_SINTOMAS en días (no aditiva). NULL si las fechas están en desorden.']
+  dias_ingreso_a_resultado smallint [note: 'FECHA_RESULTADO - FECHA_INGRESO en días (no aditiva). NULL sin resultado, en 2022 o si las fechas están en desorden.']
+  dias_ingreso_a_defuncion smallint [note: 'FECHA_DEF - FECHA_INGRESO en días (no aditiva). NULL sin defunción o si las fechas están en desorden.']
+  Note: 'Un caso por fila (grano: ID_REGISTRO), con llaves a 12 dimensiones y 11 medidas. Instantánea acumulativa: los hitos del caso son cuatro fechas.'
+}
+
+Table dw.dim_atencion {
+  id_atencion smallint [pk, note: 'Llave sustituta de la combinación.']
+  origen smallint [not null, note: 'ORIGEN: 1 USMER, 2 FUERA DE USMER. Es del caso, no de la unidad: una misma CLUES (CMIMS000186) tiene ambos valores.']
+  origen_desc varchar(20) [not null, note: 'Descripción de ORIGEN.']
+  tipo_paciente smallint [not null, note: 'TIPO_PACIENTE: 1 AMBULATORIO, 2 HOSPITALIZADO.']
+  tipo_paciente_desc varchar(20) [not null, note: 'Descripción de TIPO_PACIENTE.']
+  neumonia smallint [not null, note: 'NEUMONIA (catálogo SI_NO).']
+  neumonia_desc varchar(20) [not null, note: 'Descripción de NEUMONIA.']
+  intubado smallint [not null, note: 'INTUBADO (catálogo SI_NO): 97 NO APLICA en todos los ambulatorios.']
+  intubado_desc varchar(20) [not null, note: 'Descripción de INTUBADO.']
+  uci smallint [not null, note: 'UCI (catálogo SI_NO): 97 NO APLICA en todos los ambulatorios.']
+  uci_desc varchar(20) [not null, note: 'Descripción de UCI.']
+  nivel_gravedad smallint [not null, note: '1 ambulatorio, 2 hospitalizado, 3 hospitalizado con UCI o intubación, 9 no especificado. Jerarquía: combinación → nivel de gravedad → tipo de paciente.']
+  gravedad_desc varchar(50) [not null, note: 'Descripción del nivel de gravedad.']
+  indexes {
+    (origen, tipo_paciente, neumonia, intubado, uci) [unique, note: 'llave natural compuesta']
+  }
+  Note: 'Cómo se vigiló y atendió el caso: origen de la vigilancia, tipo de paciente, neumonía, intubación y UCI. Una fila por combinación observada.'
+}
+
+Table dw.dim_calidad {
+  id_calidad smallint [pk, note: 'Llave sustituta de la combinación.']
+  edad_no_valida boolean [not null, note: 'ERROR. EDAD = 122: nacimiento implícito en 1900 (34 casos).']
+  fechas_en_desorden boolean [not null, note: 'ERROR. Defunción antes del ingreso o de los síntomas, resultado antes del ingreso, o síntomas después del ingreso.']
+  sintomas_mas_de_10_dias boolean [not null, note: 'POR REVISAR. Más de 10 días entre síntomas e ingreso: fuera de la ventana de la definición operativa de caso (DGE, 2022).']
+  demora_extrema boolean [not null, note: 'POR REVISAR. Más de 31 días entre síntomas e ingreso (cerca de Tukey sobre el logaritmo de la demora, Práctica 2).']
+  embarazo_edad_atipica boolean [not null, note: 'POR REVISAR. EMBARAZO = 1 con edad menor de 10 o mayor de 55.']
+  tabaquismo_menor_10 boolean [not null, note: 'POR REVISAR. TABAQUISMO = 1 con edad menor de 10.']
+  municipio_fuera_catalogo boolean [not null, note: 'ERROR. El par ENTIDAD_RES-MUNICIPIO_RES no existe en el catálogo.']
+  entidad_nac_inconsistente boolean [not null, note: 'ERROR. Extranjero con ENTIDAD_NAC distinta de 97, o mexicano sin entidad de nacimiento entre 1 y 32.']
+  clues_ficticia boolean [not null, note: 'ERROR. CLUES con institución XXX.']
+  defuncion_ambulatoria boolean [not null, note: 'POR REVISAR. Defunción registrada en un paciente ambulatorio.']
+  intubado_sin_uci boolean [not null, note: 'POR REVISAR. Intubado sin ingreso a UCI: posible fuera de terapia intensiva, no necesariamente un error.']
+  num_banderas smallint [not null, note: 'Cuántas banderas están activas.']
+  nivel_maximo varchar(15) [not null, note: 'SIN BANDERAS, POR REVISAR o ERROR: la bandera más grave que tiene el caso.']
+  descripcion varchar(300) [not null, note: 'Lista legible de las banderas activas.']
+  indexes {
+    (edad_no_valida, fechas_en_desorden, sintomas_mas_de_10_dias, demora_extrema, embarazo_edad_atipica, tabaquismo_menor_10, municipio_fuera_catalogo, entidad_nac_inconsistente, clues_ficticia, defuncion_ambulatoria, intubado_sin_uci) [unique, note: 'llave natural compuesta']
+  }
+  Note: 'Banderas de calidad del caso, de las reglas de la Práctica 2: una fila por combinación observada. Permite excluir o estudiar los registros dudosos sin borrarlos.'
+}
+
+Table dw.dim_comorbilidad {
+  id_comorbilidad integer [pk, note: 'Llave sustituta de la combinación.']
+  diabetes smallint [not null, note: 'DIABETES (catálogo SI_NO: 1 SI, 2 NO, 98 SE IGNORA).']
+  epoc smallint [not null, note: 'EPOC (catálogo SI_NO).']
+  asma smallint [not null, note: 'ASMA (catálogo SI_NO).']
+  inmusupr smallint [not null, note: 'INMUSUPR, inmunosupresión (catálogo SI_NO).']
+  hipertension smallint [not null, note: 'HIPERTENSION (catálogo SI_NO).']
+  otra_com smallint [not null, note: 'OTRA_COM, otras enfermedades (catálogo SI_NO). El diccionario de 2020 la llama OTRAS_COM.']
+  cardiovascular smallint [not null, note: 'CARDIOVASCULAR (catálogo SI_NO).']
+  obesidad smallint [not null, note: 'OBESIDAD (catálogo SI_NO).']
+  renal_cronica smallint [not null, note: 'RENAL_CRONICA (catálogo SI_NO).']
+  tabaquismo smallint [not null, note: 'TABAQUISMO, hábito (catálogo SI_NO). No cuenta como comorbilidad en num_comorbilidades.']
+  num_comorbilidades smallint [not null, note: 'Cuántas de las 9 enfermedades valen 1 (SI). Jerarquía: combinación → número → grupo → tiene alguna.']
+  grupo_comorbilidades varchar(12) [not null, note: 'NINGUNA, UNA, DOS o TRES O MÁS.']
+  tiene_comorbilidad boolean [not null, note: 'Verdadero si al menos una de las 9 enfermedades vale 1.']
+  num_sin_dato smallint [not null, note: 'Cuántas de las 10 banderas valen 97, 98 o 99 (no aplica, se ignora o no especificado).']
+  descripcion varchar(200) [not null, note: 'Lista legible de lo que vale 1 (DIABETES + HIPERTENSIÓN) o NINGUNA.']
+  indexes {
+    (diabetes, epoc, asma, inmusupr, hipertension, otra_com, cardiovascular, obesidad, renal_cronica, tabaquismo) [unique, note: 'llave natural compuesta']
+  }
+  Note: 'Comorbilidades y tabaquismo: una fila por combinación observada de las 10 banderas SI_NO (1,315). Es el catálogo de comorbilidades con valores únicos que sugiere el enunciado.'
+}
+
+Table dw.dim_diagnostico {
+  id_diagnostico smallint [pk, note: 'Llave sustituta de la combinación.']
+  otro_caso smallint [not null, note: 'OTRO_CASO, contacto con otro caso de SARS-CoV-2 (catálogo SI_NO).']
+  otro_caso_desc varchar(20) [not null, note: 'Descripción de OTRO_CASO.']
+  toma_muestra_lab smallint [not null, note: 'TOMA_MUESTRA_LAB (catálogo SI_NO).']
+  toma_muestra_lab_desc varchar(20) [not null, note: 'Descripción de TOMA_MUESTRA_LAB.']
+  resultado_lab smallint [not null, note: 'RESULTADO_LAB: 1 positivo, 2 no positivo, 3 pendiente, 4 no adecuado, 97 sin muestra.']
+  resultado_lab_desc varchar(40) [not null, note: 'Descripción de RESULTADO_LAB.']
+  toma_muestra_antigeno smallint [not null, note: 'TOMA_MUESTRA_ANTIGENO (catálogo SI_NO).']
+  toma_muestra_antigeno_desc varchar(20) [not null, note: 'Descripción de TOMA_MUESTRA_ANTIGENO.']
+  resultado_antigeno smallint [not null, note: 'RESULTADO_ANTIGENO: 1 positivo, 2 negativo, 97 sin muestra.']
+  resultado_antigeno_desc varchar(40) [not null, note: 'Descripción de RESULTADO_ANTIGENO.']
+  clasificacion_final smallint [not null, note: 'CLASIFICACION_FINAL (1 a 7). Jerarquía: clasificación → grupo → confirmado.']
+  clasificacion_final_desc varchar(80) [not null, note: 'Descripción oficial de CLASIFICACION_FINAL.']
+  grupo_clasificacion varchar(20) [not null, note: 'CONFIRMADO (1, 2, 3), SOSPECHOSO (6), NEGATIVO (7) o NO CONCLUYENTE (4, 5).']
+  es_confirmado boolean [not null, note: 'Verdadero en las clasificaciones 1, 2 y 3.']
+  indexes {
+    (otro_caso, toma_muestra_lab, resultado_lab, toma_muestra_antigeno, resultado_antigeno, clasificacion_final) [unique, note: 'llave natural compuesta']
+  }
+  Note: 'Ruta diagnóstica del caso: contacto con otro caso, muestras, resultados y clasificación final. Una fila por combinación observada (66).'
+}
+
+Table dw.dim_edad {
+  id_edad smallint [pk, note: 'Llave: la propia edad (entero estable, no hace falta llave sustituta).']
+  edad smallint [unique, not null, note: 'EDAD en años. Jerarquía: edad → quinquenio → grupo decenal → grupo etario.']
+  quinquenio varchar(7) [not null, note: 'Grupo de cinco años (00-04 ... 95-99, 100+).']
+  grupo_decenal varchar(7) [not null, note: 'Grupo de diez años (00-09 ... 90-99, 100+).']
+  grupo_etario varchar(40) [not null, note: 'MENORES DE EDAD (0-17), 18-39, 40-59, PERSONAS ADULTAS MAYORES (60 y más, LDPAM art. 3).']
+  es_edad_valida boolean [not null, note: 'Falso desde 122 años: nacimiento implícito en 1900 o antes, una fecha por omisión (Práctica 2). En estos datos solo hay 122.']
+  nota varchar(120) [note: 'Por qué la edad no es válida.']
+  Note: 'Edad en años con sus grupos. Una fila por edad observada (0 a 122).'
+}
+
+Table dw.dim_entidad {
+  id_entidad smallint [pk, note: 'Llave sustituta.']
+  cve_entidad smallint [unique, not null, note: 'Clave de entidad del catálogo (1 a 32, 36, 97, 98, 99).']
+  nombre_entidad varchar(40) [not null, note: 'Nombre oficial de la entidad, idéntico al de dim_ubicacion.']
+  abrev_entidad varchar(3) [note: 'Abreviatura de la entidad del catálogo.']
+  tipo_miembro varchar(30) [not null, note: 'ENTIDAD FEDERATIVA, PAÍS, NO APLICA, SE IGNORA, NO ESPECIFICADO o FUERA DE CATÁLOGO.']
+  es_entidad_federativa boolean [not null, note: 'Verdadero en las claves 1 a 32.']
+  Note: 'Entidad de nacimiento del paciente. Versión resumida (rollup) y conformada de dim_ubicacion: mismas claves y nombres de entidad, sin el nivel municipio, que ENTIDAD_NAC no tiene.'
+}
+
+Table dw.dim_extracto {
+  id_extracto smallint [pk, note: 'Llave sustituta.']
+  archivo_origen varchar(60) [unique, not null, note: 'Nombre del CSV de origen (columna archivo_origen de covid_historica).']
+  fecha_actualizacion date [not null, note: 'FECHA_ACTUALIZACION: fecha de corte del extracto (2023-06-01 para el de 2022, 2023-06-23 para el de 2023).']
+  anio_nominal smallint [not null, note: 'Año que dice el nombre del archivo.']
+  columnas_csv smallint [not null, note: 'Columnas del CSV: 41 en 2022 y 44 en 2023.']
+  trae_unidad_y_resultado boolean [not null, note: 'Falso en 2022: ese CSV no trae MUNICIPIO_UM, CLUES ni FECHA_RESULTADO.']
+  filas_csv integer [not null, note: 'Filas de datos del CSV antes de quitar duplicados (Práctica 2).']
+  casos_unicos integer [not null, note: 'Casos del extracto en covid_historica, ya sin duplicados.']
+  fecha_sintomas_min date [not null, note: 'Primera fecha de inicio de síntomas del extracto.']
+  fecha_sintomas_max date [not null, note: 'Última fecha de inicio de síntomas del extracto.']
+  periodo_efectivo varchar(60) [not null, note: 'Periodo que concentra los casos (Práctica 2, Tabla 13): el nombre del archivo no lo dice.']
+  Note: 'Archivo del que viene cada caso (linaje). FECHA_ACTUALIZACION depende solo del archivo, así que vive aquí y no se repite en 2.1 millones de filas.'
+}
+
+Table dw.dim_paciente {
+  id_paciente smallint [pk, note: 'Llave sustituta de la combinación.']
+  sexo smallint [not null, note: 'SEXO: 1 MUJER, 2 HOMBRE, 99 NO ESPECIFICADO.']
+  sexo_desc varchar(20) [not null, note: 'Descripción de SEXO en el catálogo.']
+  embarazo smallint [not null, note: 'EMBARAZO (catálogo SI_NO): 97 NO APLICA en todos los hombres.']
+  embarazo_desc varchar(20) [not null, note: 'Descripción de EMBARAZO.']
+  habla_lengua_indig smallint [not null, note: 'HABLA_LENGUA_INDIG (catálogo SI_NO).']
+  habla_lengua_indig_desc varchar(20) [not null, note: 'Descripción de HABLA_LENGUA_INDIG.']
+  indigena smallint [not null, note: 'INDIGENA, autoadscripción (catálogo SI_NO).']
+  indigena_desc varchar(20) [not null, note: 'Descripción de INDIGENA.']
+  nacionalidad smallint [not null, note: 'NACIONALIDAD: 1 MEXICANA, 2 EXTRANJERA, 99 NO ESPECIFICADO. Coincide siempre con PAIS_NACIONALIDAD.']
+  nacionalidad_desc varchar(20) [not null, note: 'Descripción de NACIONALIDAD.']
+  migrante smallint [not null, note: 'MIGRANTE (catálogo SI_NO): 99 NO ESPECIFICADO en el 98.77% de los casos.']
+  migrante_desc varchar(20) [not null, note: 'Descripción de MIGRANTE.']
+  indexes {
+    (sexo, embarazo, habla_lengua_indig, indigena, nacionalidad, migrante) [unique, note: 'llave natural compuesta']
+  }
+  Note: 'Perfil demográfico del paciente: una fila por combinación observada de seis atributos de catálogo (dimensión basura o mini-dimensión). 87 combinaciones en 2,099,997 casos.'
+}
+
+Table dw.dim_pais {
+  id_pais smallint [pk, note: 'Llave sustituta.']
+  pais_original varchar(60) [unique, not null, note: 'El texto tal como viene en covid_historica (Thailandia, SE DESCONOCE, 97).']
+  pais varchar(60) [not null, note: 'Nombre corregido (Tailandia) o etiqueta de la categoría (DESCONOCIDO, NO APLICA).']
+  tipo_valor varchar(20) [not null, note: 'PAÍS O TERRITORIO, AGRUPACIÓN, NO VIGENTE, NO ES PAÍS, GENÉRICO, DESCONOCIDO o NO APLICA.']
+  es_mexico boolean [not null, note: 'Verdadero solo para México.']
+  nota varchar(160) [note: 'Qué se corrigió o por qué el valor no es un país.']
+  Note: 'País, normalizado. Una fila por valor de texto distinto de PAIS_NACIONALIDAD o PAIS_ORIGEN (159). Se usa dos veces: nacionalidad y país de origen.'
+}
+
+Table dw.dim_tiempo {
+  id_tiempo integer [pk, note: 'Llave AAAAMMDD (20220102). -1 = no disponible en el extracto; -2 = no aplica (el evento no ocurrió).']
+  fecha date [unique, note: 'Fecha del día; NULL solo en los miembros especiales.']
+  tipo_miembro varchar(30) [not null, note: 'FECHA, NO DISPONIBLE EN EL EXTRACTO o NO APLICA (SIN EVENTO).']
+  anio smallint [note: 'Año calendario. Jerarquía: día → mes → trimestre → semestre → año.']
+  semestre smallint [note: 'Semestre del año (1 o 2).']
+  trimestre smallint [note: 'Trimestre del año (1 a 4).']
+  mes smallint [note: 'Mes (1 a 12).']
+  nombre_mes varchar(10) [note: 'Nombre del mes en español, en mayúsculas.']
+  anio_mes char(7) [note: 'Año y mes como texto AAAA-MM: ordena bien en cualquier herramienta de gráficas.']
+  dia smallint [note: 'Día del mes.']
+  dia_semana smallint [note: 'Día de la semana ISO: 1 = lunes ... 7 = domingo.']
+  nombre_dia varchar(10) [note: 'Nombre del día en español, en mayúsculas.']
+  es_fin_de_semana boolean [note: 'Verdadero en sábado y domingo.']
+  anio_epi smallint [note: 'Año epidemiológico: el año del miércoles de la semana. Jerarquía: día → semana epidemiológica → año epidemiológico.']
+  semana_epi smallint [note: 'Semana epidemiológica (domingo a sábado; la semana 1 es la que contiene el 4 de enero). SE01 2022 = 2 al 8 de enero; SE01 2023 = 1 al 7 de enero.']
+  inicio_semana_epi date [note: 'Domingo con el que empieza la semana epidemiológica.']
+  temporada_influenza varchar(30) [note: 'Temporada estacional de influenza de la DGE (semana 40 a semana 20 del año siguiente) o periodo interestacional.']
+  es_festivo boolean [note: 'Día de descanso obligatorio nacional (LFT, artículo 74, fracciones I a VI y VIII).']
+  nombre_festivo varchar(60) [note: 'Conmemoración del día de descanso obligatorio.']
+  tipo_dia varchar(20) [note: 'LABORAL, FIN DE SEMANA o FESTIVO OFICIAL.']
+  Note: 'Calendario diario 2022-2023 más dos miembros especiales. Se usa cuatro veces en la tabla de hechos: síntomas, ingreso, resultado y defunción.'
+}
+
+Table dw.dim_ubicacion {
+  id_ubicacion integer [pk, note: 'Llave sustituta.']
+  cve_entidad smallint [not null, note: 'Clave de entidad (ENTIDAD_RES). Jerarquía: municipio → entidad → país.']
+  nombre_entidad varchar(40) [not null, note: 'Nombre oficial de la entidad.']
+  abrev_entidad varchar(3) [note: 'Abreviatura de la entidad del catálogo.']
+  cve_municipio smallint [not null, note: 'Clave de municipio (MUNICIPIO_RES). Solo es única junto con la entidad: el 999 existe en cada entidad.']
+  nombre_municipio varchar(80) [not null, note: 'Nombre oficial del municipio.']
+  cvegeo char(5) [note: 'Clave geoestadística del INEGI de 5 dígitos (09007 = Iztapalapa), para unir con capas o datos del INEGI. NULL en códigos fuera de catálogo.']
+  tipo_miembro varchar(30) [not null, note: 'MUNICIPIO, NO ESPECIFICADO, NO APLICA, SE IGNORA o FUERA DE CATÁLOGO.']
+  es_entidad_federativa boolean [not null, note: 'Verdadero en las claves de entidad 1 a 32.']
+  indexes {
+    (cve_entidad, cve_municipio) [unique, note: 'llave natural compuesta']
+  }
+  Note: 'Municipio de residencia del paciente. Una fila por municipio del catálogo oficial (2,501, con el 999 NO ESPECIFICADO de cada entidad) más los miembros inferidos fuera de catálogo.'
+}
+
+Table dw.dim_unidad_medica {
+  id_unidad_medica integer [pk, note: 'Llave sustituta.']
+  clues varchar(11) [note: 'Clave Única de Establecimientos de Salud (11 caracteres). NULL en las unidades no identificadas del extracto 2022.']
+  es_unidad_identificada boolean [not null, note: 'Verdadero si la fila corresponde a una CLUES (archivo 2023).']
+  es_clues_ficticia boolean [not null, note: 'Verdadero en CLUES con institución XXX (CHXXX005555, 36 registros de Chihuahua con sector 99).']
+  cve_sector smallint [not null, note: 'Clave de SECTOR. Jerarquía: CLUES → sector → tipo de institución.']
+  nombre_sector varchar(20) [not null, note: 'Nombre del sector en el catálogo oficial.']
+  tipo_institucion varchar(30) [not null, note: 'SEGURIDAD SOCIAL, SIN SEGURIDAD SOCIAL o PRIVADO, según Gómez-Dantés et al. (2011); OTRAS INSTITUCIONES (Cruz Roja, DIF, Municipal, Universitario) y NO ESPECIFICADO.']
+  cve_entidad_um smallint [not null, note: 'Entidad de la unidad (ENTIDAD_UM). Jerarquía: CLUES → municipio → entidad.']
+  nombre_entidad_um varchar(40) [not null, note: 'Nombre de la entidad de la unidad.']
+  abrev_entidad_um varchar(3) [note: 'Abreviatura de la entidad de la unidad (coincide con las dos primeras letras de la CLUES).']
+  cve_municipio_um smallint [note: 'Municipio de la unidad (MUNICIPIO_UM). NULL en 2022, donde la columna no existe.']
+  nombre_municipio_um varchar(80) [not null, note: 'Nombre del municipio de la unidad, o NO DISPONIBLE EN EL EXTRACTO.']
+  cvegeo_um char(5) [note: 'Clave geoestadística del municipio de la unidad. NULL en 2022.']
+  tipo_miembro varchar(40) [not null, note: 'UNIDAD IDENTIFICADA POR CLUES o UNIDAD NO IDENTIFICADA (EXTRACTO 2022).']
+  indexes {
+    (clues, cve_sector, cve_entidad_um) [unique, note: 'llave natural compuesta']
+  }
+  Note: 'Unidad médica que atendió el caso. En 2023, una fila por CLUES (2,269), que determina sector, entidad y municipio. En 2022 no hay CLUES: una fila por par sector-entidad (212), marcada como unidad no identificada.'
+}
+
+Ref: dw.fact_casos_covid.id_fecha_sintomas > dw.dim_tiempo.id_tiempo
+Ref: dw.fact_casos_covid.id_fecha_ingreso > dw.dim_tiempo.id_tiempo
+Ref: dw.fact_casos_covid.id_fecha_resultado > dw.dim_tiempo.id_tiempo
+Ref: dw.fact_casos_covid.id_fecha_defuncion > dw.dim_tiempo.id_tiempo
+Ref: dw.fact_casos_covid.id_ubicacion_residencia > dw.dim_ubicacion.id_ubicacion
+Ref: dw.fact_casos_covid.id_entidad_nacimiento > dw.dim_entidad.id_entidad
+Ref: dw.fact_casos_covid.id_unidad_medica > dw.dim_unidad_medica.id_unidad_medica
+Ref: dw.fact_casos_covid.id_paciente > dw.dim_paciente.id_paciente
+Ref: dw.fact_casos_covid.id_pais_nacionalidad > dw.dim_pais.id_pais
+Ref: dw.fact_casos_covid.id_pais_origen > dw.dim_pais.id_pais
+Ref: dw.fact_casos_covid.id_edad > dw.dim_edad.id_edad
+Ref: dw.fact_casos_covid.id_comorbilidad > dw.dim_comorbilidad.id_comorbilidad
+Ref: dw.fact_casos_covid.id_atencion > dw.dim_atencion.id_atencion
+Ref: dw.fact_casos_covid.id_diagnostico > dw.dim_diagnostico.id_diagnostico
+Ref: dw.fact_casos_covid.id_extracto > dw.dim_extracto.id_extracto
+Ref: dw.fact_casos_covid.id_calidad > dw.dim_calidad.id_calidad

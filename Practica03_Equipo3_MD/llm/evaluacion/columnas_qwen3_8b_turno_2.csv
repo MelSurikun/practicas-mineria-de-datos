@@ -1,0 +1,67 @@
+tabla,columna,tipo,admite_nulos,campo_de_origen,excluida
+public.dim_comorbilidad,id_comorbilidad,integer,NO,,False
+public.dim_comorbilidad,diabetes,smallint,YES,diabetes,False
+public.dim_comorbilidad,epoc,smallint,YES,epoc,False
+public.dim_comorbilidad,asma,smallint,YES,asma,False
+public.dim_comorbilidad,inmusupr,smallint,YES,inmusupr,False
+public.dim_comorbilidad,hipertension,smallint,YES,hipertension,False
+public.dim_comorbilidad,obesidad,smallint,YES,obesidad,False
+public.dim_comorbilidad,renal_cronica,smallint,YES,renal_cronica,False
+public.dim_comorbilidad,cardiovascular,smallint,YES,cardiovascular,False
+public.dim_comorbilidad,tabaquismo,smallint,YES,tabaquismo,False
+public.dim_localizacion,id_loc,integer,NO,,False
+public.dim_localizacion,pais,character varying,YES,,False
+public.dim_localizacion,estado,character varying,YES,,False
+public.dim_localizacion,municipio,character varying,YES,,False
+public.dim_localizacion,localidad,character varying,YES,,True
+public.dim_localizacion,nombre_est,character varying,YES,,False
+public.dim_localizacion,nombre_mun,character varying,YES,,False
+public.dim_localizacion,nombre_loc,character varying,YES,,False
+public.dim_localizacion,pob_mun,integer,YES,,False
+public.dim_localizacion,pob_loc,integer,YES,,False
+public.dim_paciente,id_paciente,integer,NO,,False
+public.dim_paciente,sexo,character varying,YES,sexo,False
+public.dim_paciente,embarazo,smallint,YES,embarazo,False
+public.dim_paciente,habla_lengua_indig,smallint,YES,habla_lengua_indig,False
+public.dim_paciente,indigena,smallint,YES,indigena,False
+public.dim_paciente,nacionalidad,smallint,YES,nacionalidad,False
+public.dim_paciente,migrante,smallint,YES,migrante,False
+public.dim_resultado,id_resultado,integer,NO,,False
+public.dim_resultado,clasificacion_final,smallint,YES,clasificacion_final,False
+public.dim_resultado,resultado_lab,smallint,YES,resultado_lab,False
+public.dim_resultado,resultado_antigeno,smallint,YES,resultado_antigeno,False
+public.dim_resultado,uci,smallint,YES,uci,False
+public.dim_resultado,fecha_def,date,YES,fecha_def,False
+public.dim_tiempo,id_tiempo,integer,NO,,False
+public.dim_tiempo,fecha,date,YES,,False
+public.dim_tiempo,anio,integer,YES,,False
+public.dim_tiempo,mes,integer,YES,,False
+public.dim_tiempo,dia,integer,YES,,False
+public.dim_tiempo,nombre_mes,character varying,YES,,False
+public.dim_tiempo,dia_semana,integer,YES,,False
+public.dim_tiempo,nombre_dia,character varying,YES,,False
+public.dim_tiempo,trimestre,integer,YES,,False
+public.dim_tiempo,dia_festivo_tipo,character varying,YES,,False
+public.dim_tiempo,tipo_fecha,character varying,YES,,False
+public.fact_casos_covid,id_fact_covid,integer,NO,,False
+public.fact_casos_covid,id_registro,text,YES,id_registro,False
+public.fact_casos_covid,id_fecha_ingreso_dim,integer,YES,fecha_ingreso,False
+public.fact_casos_covid,id_fecha_def_dim,integer,YES,fecha_def,False
+public.fact_casos_covid,id_fecha_sintomas_dim,integer,YES,fecha_sintomas,False
+public.fact_casos_covid,id_residencia_dim,integer,YES,,False
+public.fact_casos_covid,id_comorbilidad_dim,integer,YES,,False
+public.fact_casos_covid,id_paciente,integer,YES,,False
+public.fact_casos_covid,edad,smallint,YES,edad,False
+public.fact_casos_covid,tipo_paciente,smallint,YES,tipo_paciente,False
+public.fact_casos_covid,intubado,smallint,YES,intubado,False
+public.fact_casos_covid,neumonia,smallint,YES,neumonia,False
+public.fact_casos_covid,toma_muestra_lab,smallint,YES,toma_muestra_lab,False
+public.fact_casos_covid,resultado_lab,smallint,YES,resultado_lab,False
+public.fact_casos_covid,toma_muestra_antigeno,smallint,YES,toma_muestra_antigeno,False
+public.fact_casos_covid,resultado_antigeno,smallint,YES,resultado_antigeno,False
+public.fact_casos_covid,clasificacion_final,smallint,YES,clasificacion_final,False
+public.fact_casos_covid,fecha_resultado,date,YES,fecha_resultado,False
+public.fact_casos_covid,migrante,smallint,YES,migrante,False
+public.fact_casos_covid,pais_nacionalidad,text,YES,pais_nacionalidad,False
+public.fact_casos_covid,pais_origen,text,YES,pais_origen,False
+public.fact_casos_covid,uci,smallint,YES,uci,False

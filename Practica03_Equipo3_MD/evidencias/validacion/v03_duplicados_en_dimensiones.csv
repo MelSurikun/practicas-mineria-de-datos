@@ -1,0 +1,14 @@
+dimension,llave_natural,duplicados
+dim_atencion,5 códigos,0
+dim_calidad,11 banderas,0
+dim_comorbilidad,10 banderas,0
+dim_diagnostico,6 códigos,0
+dim_edad,edad,0
+dim_entidad,cve_entidad,0
+dim_extracto,archivo_origen,0
+dim_paciente,6 códigos,0
+dim_pais,pais_original,0
+dim_tiempo,fecha,0
+dim_ubicacion,"cve_entidad, cve_municipio",0
+dim_unidad_medica,clues (solo identificadas),0
+dim_unidad_medica,"clues, cve_sector, cve_entidad_um",0

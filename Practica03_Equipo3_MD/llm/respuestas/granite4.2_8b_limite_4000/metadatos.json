@@ -1,0 +1,64 @@
+{
+  "modelo": "granite4.2:8b",
+  "organizacion": "IBM (Granite)",
+  "licencia": "Apache 2.0",
+  "digest": "f586c02fdecdf151b656207c339aa003997345774a41768bac1fd6d2fb85913b",
+  "detalles": {
+    "parent_model": "/Users/runner/.ollama/models/blobs/sha256-16a9369d0805f80b7377d25d87f937a90c05dc04ad79173a52001e42c9aab311",
+    "format": "gguf",
+    "family": "granite",
+    "families": [
+      "granite"
+    ],
+    "parameter_size": "8.8B",
+    "quantization_level": "Q4_K_M",
+    "context_length": 131072,
+    "embedding_length": 4096,
+    "runner": "ggml"
+  },
+  "version_ollama": "0.40.13",
+  "opciones": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 20480,
+    "num_predict": 4000
+  },
+  "razonamiento": "desactivado",
+  "inicio": "2026-10-31T07:59:44",
+  "turnos": [
+    {
+      "turno": 1,
+      "prompt": "01_justificacion.md",
+      "segundos": 384.4,
+      "tokens_prompt": 4150,
+      "tokens_respuesta": 4000,
+      "tokens_por_segundo": 11.8,
+      "fin": "length",
+      "caracteres_respuesta": 12930,
+      "caracteres_razonamiento": 0
+    },
+    {
+      "turno": 2,
+      "prompt": "02_ddl.md",
+      "segundos": 373.0,
+      "tokens_prompt": 8239,
+      "tokens_respuesta": 4000,
+      "tokens_por_segundo": 10.8,
+      "fin": "length",
+      "caracteres_respuesta": 12462,
+      "caracteres_razonamiento": 0
+    },
+    {
+      "turno": 3,
+      "prompt": "03_evidencia.md",
+      "segundos": 471.1,
+      "tokens_prompt": 12760,
+      "tokens_respuesta": 4000,
+      "tokens_por_segundo": 9.3,
+      "fin": "length",
+      "caracteres_respuesta": 12717,
+      "caracteres_razonamiento": 0
+    }
+  ],
+  "fin": "2026-10-31T08:20:13"
+}

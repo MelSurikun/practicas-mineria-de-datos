@@ -1,0 +1,10 @@
+tabla,columna,tipo,admite_nulos,campo_de_origen,excluida
+public.dim_tiempo,id_tiempo,integer,NO,,False
+public.dim_tiempo,fecha,date,YES,,False
+public.dim_tiempo,anio,integer,YES,,False
+public.dim_tiempo,mes,integer,YES,,False
+public.dim_tiempo,dia,integer,YES,,False
+public.dim_tiempo,nombre_mes,character varying,YES,,False
+public.dim_tiempo,dia_semana,integer,YES,,False
+public.dim_tiempo,nombre_dia,character varying,YES,,False
+public.dim_tiempo,trimestre,integer,YES,,False

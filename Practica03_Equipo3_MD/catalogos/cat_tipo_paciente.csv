@@ -1,0 +1,4 @@
+clave_tipo_paciente,tipo_paciente
+1,AMBULATORIO
+2,HOSPITALIZADO
+99,NO ESPECIFICADO

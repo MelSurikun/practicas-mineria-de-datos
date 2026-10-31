@@ -1,0 +1,55 @@
+tabla,columna,tipo,admite_nulos,campo_de_origen,excluida
+public.dim_comorbilidad,id_comorbilidad,integer,NO,,False
+public.dim_comorbilidad,diabetes,integer,YES,diabetes,False
+public.dim_comorbilidad,epoc,integer,YES,epoc,False
+public.dim_comorbilidad,asma,integer,YES,asma,False
+public.dim_comorbilidad,inmusupr,integer,YES,inmusupr,False
+public.dim_comorbilidad,hipertension,integer,YES,hipertension,False
+public.dim_comorbilidad,obesidad,integer,YES,obesidad,False
+public.dim_comorbilidad,renal_cronica,integer,YES,renal_cronica,False
+public.dim_comorbilidad,cardiovascular,integer,YES,cardiovascular,False
+public.dim_comorbilidad,tabaquismo,integer,YES,tabaquismo,False
+public.dim_localizacion,id_loc,integer,NO,,False
+public.dim_localizacion,pais,integer,YES,,False
+public.dim_localizacion,estado,integer,YES,,False
+public.dim_localizacion,municipio,integer,YES,,False
+public.dim_localizacion,nombre_est,character varying,YES,,False
+public.dim_localizacion,nombre_mun,character varying,YES,,False
+public.dim_localizacion,pob_mun,integer,YES,,False
+public.dim_paciente,id_paciente,integer,NO,,False
+public.dim_paciente,sexo,character,YES,sexo,False
+public.dim_paciente,embarazo,integer,YES,embarazo,False
+public.dim_paciente,habla_lengua_indig,integer,YES,habla_lengua_indig,False
+public.dim_paciente,indigena,integer,YES,indigena,False
+public.dim_paciente,nacionalidad,integer,YES,nacionalidad,False
+public.dim_tiempo,id_tiempo,integer,NO,,False
+public.dim_tiempo,fecha,date,YES,,False
+public.dim_tiempo,anio,integer,YES,,False
+public.dim_tiempo,mes,integer,YES,,False
+public.dim_tiempo,dia,integer,YES,,False
+public.dim_tiempo,nombre_mes,character varying,YES,,False
+public.dim_tiempo,dia_semana,integer,YES,,False
+public.dim_tiempo,nombre_dia,character varying,YES,,False
+public.dim_tiempo,trimestre,integer,YES,,False
+public.dim_tiempo,dia_festivo_tipo,character varying,YES,,False
+public.dim_tiempo,tipo_fecha,character varying,YES,,False
+public.fact_covid,id_fact_covid,integer,NO,,False
+public.fact_covid,id_registro,character varying,YES,id_registro,False
+public.fact_covid,id_fecha_ingreso_dim,integer,YES,fecha_ingreso,False
+public.fact_covid,id_fecha_def_dim,integer,YES,fecha_def,False
+public.fact_covid,id_fecha_sintomas_dim,integer,YES,fecha_sintomas,False
+public.fact_covid,id_residencia_dim,integer,YES,,False
+public.fact_covid,id_comorbilidad_dim,integer,YES,,False
+public.fact_covid,id_paciente,integer,YES,,False
+public.fact_covid,edad,integer,YES,edad,False
+public.fact_covid,tipo_paciente,integer,YES,tipo_paciente,False
+public.fact_covid,intubado,integer,YES,intubado,False
+public.fact_covid,neumonia,integer,YES,neumonia,False
+public.fact_covid,resultado_lab,integer,YES,resultado_lab,False
+public.fact_covid,resultado_antigeno,integer,YES,resultado_antigeno,False
+public.fact_covid,clasificacion_final,integer,YES,clasificacion_final,False
+public.fact_covid,uci,integer,YES,uci,False
+public.fact_covid,fecha_resultado,date,YES,fecha_resultado,False
+public.fact_covid,migrante,integer,YES,migrante,False
+public.fact_covid,pais_nacionalidad,character varying,YES,pais_nacionalidad,False
+public.fact_covid,pais_origen,character varying,YES,pais_origen,False

@@ -1,0 +1,5 @@
+corrida,turno,cobertura_por_nombre,cobertura_revisada,campos_faltantes_revisados,correccion_manual
+qwen3_8b,2,32,34,fecha_actualizacion origen sector entidad_um municipio_um clues entidad_nac otra_com otro_caso,"estado y municipio de dim_localizacion son entidad_res y municipio_res (los une id_residencia_dim); pais no se cuenta: ya están pais_nacionalidad y pais_origen en los hechos"
+granite4.2_8b,2,36,36,fecha_actualizacion sector entidad_um municipio_um clues toma_muestra_lab toma_muestra_antigeno,"sin corrección: usa los nombres de origen; se evalúa el segundo de sus dos bloques de SQL"
+mistral-nemo_12b,2,30,32,fecha_actualizacion origen sector entidad_um municipio_um clues entidad_nac otra_com otro_caso toma_muestra_lab toma_muestra_antigeno,"estado y municipio de dim_localizacion son entidad_res y municipio_res; pais no se cuenta"
+modelo_propuesto,,41,43,,"entidad_res y municipio_res llegan por dim_ubicacion (cve_entidad y cve_municipio, rol residencia); los 44 destinos están validados en mapeo_origen_destino.xlsx y en la ida y vuelta (v06)"

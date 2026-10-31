@@ -1,0 +1,17 @@
+{
+  "model": "mistral-nemo:12b",
+  "created_at": "2026-10-31T14:23:21.834516Z",
+  "message": {
+    "role": "assistant",
+    "content": "```sql\nCREATE TABLE dim_tiempo (\n  id_tiempo SERIAL PRIMARY KEY,\n  fecha DATE,\n  anio INT,\n  mes INT,\n  dia INT,\n  nombre_mes VARCHAR(20),\n  dia_semana INT,\n  nombre_dia VARCHAR(20),\n  trimestre INT,\n  dia_festivo_tipo VARCHAR(50),\n  tipo_fecha VARCHAR(50)\n);\n\nCREATE TABLE dim_localizacion (\n  id_loc SERIAL PRIMARY KEY,\n  pais INT,\n  estado INT,\n  municipio INT,\n  nombre_est VARCHAR(100),\n  nombre_mun VARCHAR(100),\n  pob_mun INT\n);\n\nCREATE TABLE dim_comorbilidad (\n  id_comorbilidad SERIAL PRIMARY KEY,\n  diabetes INT,\n  epoc INT,\n  asma INT,\n  inmusupr INT,\n  hipertension INT,\n  obesidad INT,\n  renal_cronica INT,\n  cardiovascular INT,\n  tabaquismo INT\n);\n\nCREATE TABLE dim_paciente (\n  id_paciente SERIAL PRIMARY KEY,\n  sexo CHAR(1),\n  embarazo INT,\n  habla_lengua_indig INT,\n  indigena INT,\n  nacionalidad INT\n);\n\nCREATE TABLE fact_covid (\n  id_fact_covid SERIAL PRIMARY KEY,\n  id_registro VARCHAR(25),\n  id_fecha_ingreso_dim INT,\n  id_fecha_def_dim INT,\n  id_fecha_sintomas_dim INT,\n  id_residencia_dim INT,\n  id_comorbilidad_dim INT,\n  id_paciente INT,\n  edad INT,\n  tipo_paciente INT,\n  intubado INT,\n  neumonia INT,\n  resultado_lab INT,\n  resultado_antigeno INT,\n  clasificacion_final INT,\n  uci INT,\n  fecha_resultado DATE,\n  migrante INT,\n  pais_nacionalidad VARCHAR(50),\n  pais_origen VARCHAR(50),\n  CONSTRAINT fk_fact_fecha_ingreso FOREIGN KEY (id_fecha_ingreso_dim) REFERENCES dim_tiempo(id_tiempo),\n  CONSTRAINT fk_fact_fecha_def FOREIGN KEY (id_fecha_def_dim) REFERENCES dim_tiempo(id_tiempo),\n  CONSTRAINT fk_fact_fecha_sintomas FOREIGN KEY (id_fecha_sintomas_dim) REFERENCES dim_tiempo(id_tiempo),\n  CONSTRAINT fk_fact_residencia FOREIGN KEY (id_residencia_dim) REFERENCES dim_localizacion(id_loc),\n  CONSTRAINT fk_fact_comorbilidad FOREIGN KEY (id_comorbilidad_dim) REFERENCES dim_comorbilidad(id_comorbilidad),\n  CONSTRAINT fk_fact_paciente FOREIGN KEY (id_paciente) REFERENCES dim_paciente(id_paciente)\n);\n```"
+  },
+  "done": true,
+  "done_reason": "stop",
+  "total_duration": 65796627584,
+  "load_duration": 15421500,
+  "prompt_eval_count": 4960,
+  "prompt_eval_cached_count": 4125,
+  "prompt_eval_duration": 12323583000,
+  "eval_count": 624,
+  "eval_duration": 53422151000
+}

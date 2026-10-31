@@ -1,0 +1,1 @@
+Escribe el script SQL para PostgreSQL 17 que crea tu modelo: todas las tablas, con sus llaves primarias, sus llaves foráneas y el tipo de cada columna. Debe incluir todos los campos de covid_historica excepto LOCALIDAD_RES. Pon todo el SQL en un solo bloque ```sql y no omitas columnas ni tablas.

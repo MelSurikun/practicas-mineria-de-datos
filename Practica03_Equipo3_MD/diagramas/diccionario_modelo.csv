@@ -1,0 +1,175 @@
+tabla,columna,tipo,nulos,llave,descripcion
+fact_casos_covid,id_fact_covid,bigint,no,PK,Llave sustituta de la fila de hechos.
+fact_casos_covid,id_registro,varchar(10),no,"DD (dimensión degenerada, UNIQUE)","ID_REGISTRO, dimensión degenerada: identifica el caso y permite volver a covid_historica."
+fact_casos_covid,id_fecha_sintomas,integer,no,FK → dim_tiempo.id_tiempo,FECHA_SINTOMAS → dim_tiempo (rol: inicio de síntomas).
+fact_casos_covid,id_fecha_ingreso,integer,no,FK → dim_tiempo.id_tiempo,FECHA_INGRESO → dim_tiempo (rol: ingreso a la unidad).
+fact_casos_covid,id_fecha_resultado,integer,no,FK → dim_tiempo.id_tiempo,FECHA_RESULTADO → dim_tiempo (rol: resultado). -1 en 2022 (no existe la columna); -2 sin resultado (9999-99-99).
+fact_casos_covid,id_fecha_defuncion,integer,no,FK → dim_tiempo.id_tiempo,FECHA_DEF → dim_tiempo (rol: defunción). -2 si no hubo defunción (9999-99-99).
+fact_casos_covid,id_ubicacion_residencia,integer,no,FK → dim_ubicacion.id_ubicacion,ENTIDAD_RES + MUNICIPIO_RES → dim_ubicacion.
+fact_casos_covid,id_entidad_nacimiento,smallint,no,FK → dim_entidad.id_entidad,ENTIDAD_NAC → dim_entidad.
+fact_casos_covid,id_unidad_medica,integer,no,FK → dim_unidad_medica.id_unidad_medica,"CLUES, SECTOR, ENTIDAD_UM y MUNICIPIO_UM → dim_unidad_medica."
+fact_casos_covid,id_paciente,smallint,no,FK → dim_paciente.id_paciente,"SEXO, EMBARAZO, HABLA_LENGUA_INDIG, INDIGENA, NACIONALIDAD y MIGRANTE → dim_paciente."
+fact_casos_covid,id_pais_nacionalidad,smallint,no,FK → dim_pais.id_pais,PAIS_NACIONALIDAD → dim_pais (rol: nacionalidad).
+fact_casos_covid,id_pais_origen,smallint,no,FK → dim_pais.id_pais,PAIS_ORIGEN → dim_pais (rol: país de origen del migrante).
+fact_casos_covid,id_edad,smallint,no,FK → dim_edad.id_edad,"EDAD → dim_edad (la edad tal como viene, incluso 122)."
+fact_casos_covid,id_comorbilidad,integer,no,FK → dim_comorbilidad.id_comorbilidad,Las 10 banderas de comorbilidad y tabaquismo → dim_comorbilidad.
+fact_casos_covid,id_atencion,smallint,no,FK → dim_atencion.id_atencion,"ORIGEN, TIPO_PACIENTE, NEUMONIA, INTUBADO y UCI → dim_atencion."
+fact_casos_covid,id_diagnostico,smallint,no,FK → dim_diagnostico.id_diagnostico,"OTRO_CASO, TOMA_MUESTRA_LAB, RESULTADO_LAB, TOMA_MUESTRA_ANTIGENO, RESULTADO_ANTIGENO y CLASIFICACION_FINAL → dim_diagnostico."
+fact_casos_covid,id_extracto,smallint,no,FK → dim_extracto.id_extracto,archivo_origen y FECHA_ACTUALIZACION → dim_extracto.
+fact_casos_covid,id_calidad,smallint,no,FK → dim_calidad.id_calidad,Banderas de calidad calculadas en la carga → dim_calidad.
+fact_casos_covid,casos,smallint,no,,Siempre 1. Sumado da el número de casos (medida aditiva).
+fact_casos_covid,confirmados,smallint,no,,"1 si CLASIFICACION_FINAL es 1, 2 o 3 (aditiva)."
+fact_casos_covid,hospitalizados,smallint,no,,1 si TIPO_PACIENTE = 2 (aditiva).
+fact_casos_covid,ingresos_uci,smallint,no,,1 si UCI = 1 (aditiva).
+fact_casos_covid,intubados,smallint,no,,1 si INTUBADO = 1 (aditiva).
+fact_casos_covid,con_neumonia,smallint,no,,1 si NEUMONIA = 1 (aditiva).
+fact_casos_covid,defunciones,smallint,no,,1 si hay FECHA_DEF (aditiva). Letalidad entre confirmados = sum(defunciones * confirmados) / sum(confirmados): solo cuentan las defunciones de casos confirmados.
+fact_casos_covid,edad_anios,smallint,sí,,"EDAD como medida (no aditiva: promedio, mediana). NULL cuando la edad no es válida (122)."
+fact_casos_covid,dias_sintomas_a_ingreso,smallint,sí,,FECHA_INGRESO - FECHA_SINTOMAS en días (no aditiva). NULL si las fechas están en desorden.
+fact_casos_covid,dias_ingreso_a_resultado,smallint,sí,,"FECHA_RESULTADO - FECHA_INGRESO en días (no aditiva). NULL sin resultado, en 2022 o si las fechas están en desorden."
+fact_casos_covid,dias_ingreso_a_defuncion,smallint,sí,,FECHA_DEF - FECHA_INGRESO en días (no aditiva). NULL sin defunción o si las fechas están en desorden.
+dim_atencion,id_atencion,smallint,no,PK,Llave sustituta de la combinación.
+dim_atencion,origen,smallint,no,"LN compuesta (5 columnas, UNIQUE juntas)","ORIGEN: 1 USMER, 2 FUERA DE USMER. Es del caso, no de la unidad: una misma CLUES (CMIMS000186) tiene ambos valores."
+dim_atencion,origen_desc,varchar(20),no,,Descripción de ORIGEN.
+dim_atencion,tipo_paciente,smallint,no,"LN compuesta (5 columnas, UNIQUE juntas)","TIPO_PACIENTE: 1 AMBULATORIO, 2 HOSPITALIZADO."
+dim_atencion,tipo_paciente_desc,varchar(20),no,,Descripción de TIPO_PACIENTE.
+dim_atencion,neumonia,smallint,no,"LN compuesta (5 columnas, UNIQUE juntas)",NEUMONIA (catálogo SI_NO).
+dim_atencion,neumonia_desc,varchar(20),no,,Descripción de NEUMONIA.
+dim_atencion,intubado,smallint,no,"LN compuesta (5 columnas, UNIQUE juntas)",INTUBADO (catálogo SI_NO): 97 NO APLICA en todos los ambulatorios.
+dim_atencion,intubado_desc,varchar(20),no,,Descripción de INTUBADO.
+dim_atencion,uci,smallint,no,"LN compuesta (5 columnas, UNIQUE juntas)",UCI (catálogo SI_NO): 97 NO APLICA en todos los ambulatorios.
+dim_atencion,uci_desc,varchar(20),no,,Descripción de UCI.
+dim_atencion,nivel_gravedad,smallint,no,,"1 ambulatorio, 2 hospitalizado, 3 hospitalizado con UCI o intubación, 9 no especificado. Jerarquía: combinación → nivel de gravedad → tipo de paciente."
+dim_atencion,gravedad_desc,varchar(50),no,,Descripción del nivel de gravedad.
+dim_calidad,id_calidad,smallint,no,PK,Llave sustituta de la combinación.
+dim_calidad,edad_no_valida,boolean,no,"LN compuesta (11 columnas, UNIQUE juntas)",ERROR. EDAD = 122: nacimiento implícito en 1900 (34 casos).
+dim_calidad,fechas_en_desorden,boolean,no,"LN compuesta (11 columnas, UNIQUE juntas)","ERROR. Defunción antes del ingreso o de los síntomas, resultado antes del ingreso, o síntomas después del ingreso."
+dim_calidad,sintomas_mas_de_10_dias,boolean,no,"LN compuesta (11 columnas, UNIQUE juntas)","POR REVISAR. Más de 10 días entre síntomas e ingreso: fuera de la ventana de la definición operativa de caso (DGE, 2022)."
+dim_calidad,demora_extrema,boolean,no,"LN compuesta (11 columnas, UNIQUE juntas)","POR REVISAR. Más de 31 días entre síntomas e ingreso (cerca de Tukey sobre el logaritmo de la demora, Práctica 2)."
+dim_calidad,embarazo_edad_atipica,boolean,no,"LN compuesta (11 columnas, UNIQUE juntas)",POR REVISAR. EMBARAZO = 1 con edad menor de 10 o mayor de 55.
+dim_calidad,tabaquismo_menor_10,boolean,no,"LN compuesta (11 columnas, UNIQUE juntas)",POR REVISAR. TABAQUISMO = 1 con edad menor de 10.
+dim_calidad,municipio_fuera_catalogo,boolean,no,"LN compuesta (11 columnas, UNIQUE juntas)",ERROR. El par ENTIDAD_RES-MUNICIPIO_RES no existe en el catálogo.
+dim_calidad,entidad_nac_inconsistente,boolean,no,"LN compuesta (11 columnas, UNIQUE juntas)","ERROR. Extranjero con ENTIDAD_NAC distinta de 97, o mexicano sin entidad de nacimiento entre 1 y 32."
+dim_calidad,clues_ficticia,boolean,no,"LN compuesta (11 columnas, UNIQUE juntas)",ERROR. CLUES con institución XXX.
+dim_calidad,defuncion_ambulatoria,boolean,no,"LN compuesta (11 columnas, UNIQUE juntas)",POR REVISAR. Defunción registrada en un paciente ambulatorio.
+dim_calidad,intubado_sin_uci,boolean,no,"LN compuesta (11 columnas, UNIQUE juntas)","POR REVISAR. Intubado sin ingreso a UCI: posible fuera de terapia intensiva, no necesariamente un error."
+dim_calidad,num_banderas,smallint,no,,Cuántas banderas están activas.
+dim_calidad,nivel_maximo,varchar(15),no,,"SIN BANDERAS, POR REVISAR o ERROR: la bandera más grave que tiene el caso."
+dim_calidad,descripcion,varchar(300),no,,Lista legible de las banderas activas.
+dim_comorbilidad,id_comorbilidad,integer,no,PK,Llave sustituta de la combinación.
+dim_comorbilidad,diabetes,smallint,no,"LN compuesta (10 columnas, UNIQUE juntas)","DIABETES (catálogo SI_NO: 1 SI, 2 NO, 98 SE IGNORA)."
+dim_comorbilidad,epoc,smallint,no,"LN compuesta (10 columnas, UNIQUE juntas)",EPOC (catálogo SI_NO).
+dim_comorbilidad,asma,smallint,no,"LN compuesta (10 columnas, UNIQUE juntas)",ASMA (catálogo SI_NO).
+dim_comorbilidad,inmusupr,smallint,no,"LN compuesta (10 columnas, UNIQUE juntas)","INMUSUPR, inmunosupresión (catálogo SI_NO)."
+dim_comorbilidad,hipertension,smallint,no,"LN compuesta (10 columnas, UNIQUE juntas)",HIPERTENSION (catálogo SI_NO).
+dim_comorbilidad,otra_com,smallint,no,"LN compuesta (10 columnas, UNIQUE juntas)","OTRA_COM, otras enfermedades (catálogo SI_NO). El diccionario de 2020 la llama OTRAS_COM."
+dim_comorbilidad,cardiovascular,smallint,no,"LN compuesta (10 columnas, UNIQUE juntas)",CARDIOVASCULAR (catálogo SI_NO).
+dim_comorbilidad,obesidad,smallint,no,"LN compuesta (10 columnas, UNIQUE juntas)",OBESIDAD (catálogo SI_NO).
+dim_comorbilidad,renal_cronica,smallint,no,"LN compuesta (10 columnas, UNIQUE juntas)",RENAL_CRONICA (catálogo SI_NO).
+dim_comorbilidad,tabaquismo,smallint,no,"LN compuesta (10 columnas, UNIQUE juntas)","TABAQUISMO, hábito (catálogo SI_NO). No cuenta como comorbilidad en num_comorbilidades."
+dim_comorbilidad,num_comorbilidades,smallint,no,,Cuántas de las 9 enfermedades valen 1 (SI). Jerarquía: combinación → número → grupo → tiene alguna.
+dim_comorbilidad,grupo_comorbilidades,varchar(12),no,,"NINGUNA, UNA, DOS o TRES O MÁS."
+dim_comorbilidad,tiene_comorbilidad,boolean,no,,Verdadero si al menos una de las 9 enfermedades vale 1.
+dim_comorbilidad,num_sin_dato,smallint,no,,"Cuántas de las 10 banderas valen 97, 98 o 99 (no aplica, se ignora o no especificado)."
+dim_comorbilidad,descripcion,varchar(200),no,,Lista legible de lo que vale 1 (DIABETES + HIPERTENSIÓN) o NINGUNA.
+dim_diagnostico,id_diagnostico,smallint,no,PK,Llave sustituta de la combinación.
+dim_diagnostico,otro_caso,smallint,no,"LN compuesta (6 columnas, UNIQUE juntas)","OTRO_CASO, contacto con otro caso de SARS-CoV-2 (catálogo SI_NO)."
+dim_diagnostico,otro_caso_desc,varchar(20),no,,Descripción de OTRO_CASO.
+dim_diagnostico,toma_muestra_lab,smallint,no,"LN compuesta (6 columnas, UNIQUE juntas)",TOMA_MUESTRA_LAB (catálogo SI_NO).
+dim_diagnostico,toma_muestra_lab_desc,varchar(20),no,,Descripción de TOMA_MUESTRA_LAB.
+dim_diagnostico,resultado_lab,smallint,no,"LN compuesta (6 columnas, UNIQUE juntas)","RESULTADO_LAB: 1 positivo, 2 no positivo, 3 pendiente, 4 no adecuado, 97 sin muestra."
+dim_diagnostico,resultado_lab_desc,varchar(40),no,,Descripción de RESULTADO_LAB.
+dim_diagnostico,toma_muestra_antigeno,smallint,no,"LN compuesta (6 columnas, UNIQUE juntas)",TOMA_MUESTRA_ANTIGENO (catálogo SI_NO).
+dim_diagnostico,toma_muestra_antigeno_desc,varchar(20),no,,Descripción de TOMA_MUESTRA_ANTIGENO.
+dim_diagnostico,resultado_antigeno,smallint,no,"LN compuesta (6 columnas, UNIQUE juntas)","RESULTADO_ANTIGENO: 1 positivo, 2 negativo, 97 sin muestra."
+dim_diagnostico,resultado_antigeno_desc,varchar(40),no,,Descripción de RESULTADO_ANTIGENO.
+dim_diagnostico,clasificacion_final,smallint,no,"LN compuesta (6 columnas, UNIQUE juntas)",CLASIFICACION_FINAL (1 a 7). Jerarquía: clasificación → grupo → confirmado.
+dim_diagnostico,clasificacion_final_desc,varchar(80),no,,Descripción oficial de CLASIFICACION_FINAL.
+dim_diagnostico,grupo_clasificacion,varchar(20),no,,"CONFIRMADO (1, 2, 3), SOSPECHOSO (6), NEGATIVO (7) o NO CONCLUYENTE (4, 5)."
+dim_diagnostico,es_confirmado,boolean,no,,"Verdadero en las clasificaciones 1, 2 y 3."
+dim_edad,id_edad,smallint,no,PK,"Llave: la propia edad (entero estable, no hace falta llave sustituta)."
+dim_edad,edad,smallint,no,LN (UNIQUE),EDAD en años. Jerarquía: edad → quinquenio → grupo decenal → grupo etario.
+dim_edad,quinquenio,varchar(7),no,,"Grupo de cinco años (00-04 ... 95-99, 100+)."
+dim_edad,grupo_decenal,varchar(7),no,,"Grupo de diez años (00-09 ... 90-99, 100+)."
+dim_edad,grupo_etario,varchar(40),no,,"MENORES DE EDAD (0-17), 18-39, 40-59, PERSONAS ADULTAS MAYORES (60 y más, LDPAM art. 3)."
+dim_edad,es_edad_valida,boolean,no,,"Falso desde 122 años: nacimiento implícito en 1900 o antes, una fecha por omisión (Práctica 2). En estos datos solo hay 122."
+dim_edad,nota,varchar(120),sí,,Por qué la edad no es válida.
+dim_entidad,id_entidad,smallint,no,PK,Llave sustituta.
+dim_entidad,cve_entidad,smallint,no,LN (UNIQUE),"Clave de entidad del catálogo (1 a 32, 36, 97, 98, 99)."
+dim_entidad,nombre_entidad,varchar(40),no,,"Nombre oficial de la entidad, idéntico al de dim_ubicacion."
+dim_entidad,abrev_entidad,varchar(3),sí,,Abreviatura de la entidad del catálogo.
+dim_entidad,tipo_miembro,varchar(30),no,,"ENTIDAD FEDERATIVA, PAÍS, NO APLICA, SE IGNORA, NO ESPECIFICADO o FUERA DE CATÁLOGO."
+dim_entidad,es_entidad_federativa,boolean,no,,Verdadero en las claves 1 a 32.
+dim_extracto,id_extracto,smallint,no,PK,Llave sustituta.
+dim_extracto,archivo_origen,varchar(60),no,LN (UNIQUE),Nombre del CSV de origen (columna archivo_origen de covid_historica).
+dim_extracto,fecha_actualizacion,date,no,,"FECHA_ACTUALIZACION: fecha de corte del extracto (2023-06-01 para el de 2022, 2023-06-23 para el de 2023)."
+dim_extracto,anio_nominal,smallint,no,,Año que dice el nombre del archivo.
+dim_extracto,columnas_csv,smallint,no,,Columnas del CSV: 41 en 2022 y 44 en 2023.
+dim_extracto,trae_unidad_y_resultado,boolean,no,,"Falso en 2022: ese CSV no trae MUNICIPIO_UM, CLUES ni FECHA_RESULTADO."
+dim_extracto,filas_csv,integer,no,,Filas de datos del CSV antes de quitar duplicados (Práctica 2).
+dim_extracto,casos_unicos,integer,no,,"Casos del extracto en covid_historica, ya sin duplicados."
+dim_extracto,fecha_sintomas_min,date,no,,Primera fecha de inicio de síntomas del extracto.
+dim_extracto,fecha_sintomas_max,date,no,,Última fecha de inicio de síntomas del extracto.
+dim_extracto,periodo_efectivo,varchar(60),no,,"Periodo que concentra los casos (Práctica 2, Tabla 13): el nombre del archivo no lo dice."
+dim_paciente,id_paciente,smallint,no,PK,Llave sustituta de la combinación.
+dim_paciente,sexo,smallint,no,"LN compuesta (6 columnas, UNIQUE juntas)","SEXO: 1 MUJER, 2 HOMBRE, 99 NO ESPECIFICADO."
+dim_paciente,sexo_desc,varchar(20),no,,Descripción de SEXO en el catálogo.
+dim_paciente,embarazo,smallint,no,"LN compuesta (6 columnas, UNIQUE juntas)",EMBARAZO (catálogo SI_NO): 97 NO APLICA en todos los hombres.
+dim_paciente,embarazo_desc,varchar(20),no,,Descripción de EMBARAZO.
+dim_paciente,habla_lengua_indig,smallint,no,"LN compuesta (6 columnas, UNIQUE juntas)",HABLA_LENGUA_INDIG (catálogo SI_NO).
+dim_paciente,habla_lengua_indig_desc,varchar(20),no,,Descripción de HABLA_LENGUA_INDIG.
+dim_paciente,indigena,smallint,no,"LN compuesta (6 columnas, UNIQUE juntas)","INDIGENA, autoadscripción (catálogo SI_NO)."
+dim_paciente,indigena_desc,varchar(20),no,,Descripción de INDIGENA.
+dim_paciente,nacionalidad,smallint,no,"LN compuesta (6 columnas, UNIQUE juntas)","NACIONALIDAD: 1 MEXICANA, 2 EXTRANJERA, 99 NO ESPECIFICADO. Coincide siempre con PAIS_NACIONALIDAD."
+dim_paciente,nacionalidad_desc,varchar(20),no,,Descripción de NACIONALIDAD.
+dim_paciente,migrante,smallint,no,"LN compuesta (6 columnas, UNIQUE juntas)",MIGRANTE (catálogo SI_NO): 99 NO ESPECIFICADO en el 98.77% de los casos.
+dim_paciente,migrante_desc,varchar(20),no,,Descripción de MIGRANTE.
+dim_pais,id_pais,smallint,no,PK,Llave sustituta.
+dim_pais,pais_original,varchar(60),no,LN (UNIQUE),"El texto tal como viene en covid_historica (Thailandia, SE DESCONOCE, 97)."
+dim_pais,pais,varchar(60),no,,"Nombre corregido (Tailandia) o etiqueta de la categoría (DESCONOCIDO, NO APLICA)."
+dim_pais,tipo_valor,varchar(20),no,,"PAÍS O TERRITORIO, AGRUPACIÓN, NO VIGENTE, NO ES PAÍS, GENÉRICO, DESCONOCIDO o NO APLICA."
+dim_pais,es_mexico,boolean,no,,Verdadero solo para México.
+dim_pais,nota,varchar(160),sí,,Qué se corrigió o por qué el valor no es un país.
+dim_tiempo,id_tiempo,integer,no,PK,Llave AAAAMMDD (20220102). -1 = no disponible en el extracto; -2 = no aplica (el evento no ocurrió).
+dim_tiempo,fecha,date,sí,LN (UNIQUE),Fecha del día; NULL solo en los miembros especiales.
+dim_tiempo,tipo_miembro,varchar(30),no,,"FECHA, NO DISPONIBLE EN EL EXTRACTO o NO APLICA (SIN EVENTO)."
+dim_tiempo,anio,smallint,sí,,Año calendario. Jerarquía: día → mes → trimestre → semestre → año.
+dim_tiempo,semestre,smallint,sí,,Semestre del año (1 o 2).
+dim_tiempo,trimestre,smallint,sí,,Trimestre del año (1 a 4).
+dim_tiempo,mes,smallint,sí,,Mes (1 a 12).
+dim_tiempo,nombre_mes,varchar(10),sí,,"Nombre del mes en español, en mayúsculas."
+dim_tiempo,anio_mes,char(7),sí,,Año y mes como texto AAAA-MM: ordena bien en cualquier herramienta de gráficas.
+dim_tiempo,dia,smallint,sí,,Día del mes.
+dim_tiempo,dia_semana,smallint,sí,,Día de la semana ISO: 1 = lunes ... 7 = domingo.
+dim_tiempo,nombre_dia,varchar(10),sí,,"Nombre del día en español, en mayúsculas."
+dim_tiempo,es_fin_de_semana,boolean,sí,,Verdadero en sábado y domingo.
+dim_tiempo,anio_epi,smallint,sí,,Año epidemiológico: el año del miércoles de la semana. Jerarquía: día → semana epidemiológica → año epidemiológico.
+dim_tiempo,semana_epi,smallint,sí,,Semana epidemiológica (domingo a sábado; la semana 1 es la que contiene el 4 de enero). SE01 2022 = 2 al 8 de enero; SE01 2023 = 1 al 7 de enero.
+dim_tiempo,inicio_semana_epi,date,sí,,Domingo con el que empieza la semana epidemiológica.
+dim_tiempo,temporada_influenza,varchar(30),sí,,Temporada estacional de influenza de la DGE (semana 40 a semana 20 del año siguiente) o periodo interestacional.
+dim_tiempo,es_festivo,boolean,sí,,"Día de descanso obligatorio nacional (LFT, artículo 74, fracciones I a VI y VIII)."
+dim_tiempo,nombre_festivo,varchar(60),sí,,Conmemoración del día de descanso obligatorio.
+dim_tiempo,tipo_dia,varchar(20),sí,,"LABORAL, FIN DE SEMANA o FESTIVO OFICIAL."
+dim_ubicacion,id_ubicacion,integer,no,PK,Llave sustituta.
+dim_ubicacion,cve_entidad,smallint,no,"LN compuesta (2 columnas, UNIQUE juntas)",Clave de entidad (ENTIDAD_RES). Jerarquía: municipio → entidad → país.
+dim_ubicacion,nombre_entidad,varchar(40),no,,Nombre oficial de la entidad.
+dim_ubicacion,abrev_entidad,varchar(3),sí,,Abreviatura de la entidad del catálogo.
+dim_ubicacion,cve_municipio,smallint,no,"LN compuesta (2 columnas, UNIQUE juntas)",Clave de municipio (MUNICIPIO_RES). Solo es única junto con la entidad: el 999 existe en cada entidad.
+dim_ubicacion,nombre_municipio,varchar(80),no,,Nombre oficial del municipio.
+dim_ubicacion,cvegeo,char(5),sí,,"Clave geoestadística del INEGI de 5 dígitos (09007 = Iztapalapa), para unir con capas o datos del INEGI. NULL en códigos fuera de catálogo."
+dim_ubicacion,tipo_miembro,varchar(30),no,,"MUNICIPIO, NO ESPECIFICADO, NO APLICA, SE IGNORA o FUERA DE CATÁLOGO."
+dim_ubicacion,es_entidad_federativa,boolean,no,,Verdadero en las claves de entidad 1 a 32.
+dim_unidad_medica,id_unidad_medica,integer,no,PK,Llave sustituta.
+dim_unidad_medica,clues,varchar(11),sí,"LN compuesta (3 columnas, UNIQUE juntas)",Clave Única de Establecimientos de Salud (11 caracteres). NULL en las unidades no identificadas del extracto 2022.
+dim_unidad_medica,es_unidad_identificada,boolean,no,,Verdadero si la fila corresponde a una CLUES (archivo 2023).
+dim_unidad_medica,es_clues_ficticia,boolean,no,,"Verdadero en CLUES con institución XXX (CHXXX005555, 36 registros de Chihuahua con sector 99)."
+dim_unidad_medica,cve_sector,smallint,no,"LN compuesta (3 columnas, UNIQUE juntas)",Clave de SECTOR. Jerarquía: CLUES → sector → tipo de institución.
+dim_unidad_medica,nombre_sector,varchar(20),no,,Nombre del sector en el catálogo oficial.
+dim_unidad_medica,tipo_institucion,varchar(30),no,,"SEGURIDAD SOCIAL, SIN SEGURIDAD SOCIAL o PRIVADO, según Gómez-Dantés et al. (2011); OTRAS INSTITUCIONES (Cruz Roja, DIF, Municipal, Universitario) y NO ESPECIFICADO."
+dim_unidad_medica,cve_entidad_um,smallint,no,"LN compuesta (3 columnas, UNIQUE juntas)",Entidad de la unidad (ENTIDAD_UM). Jerarquía: CLUES → municipio → entidad.
+dim_unidad_medica,nombre_entidad_um,varchar(40),no,,Nombre de la entidad de la unidad.
+dim_unidad_medica,abrev_entidad_um,varchar(3),sí,,Abreviatura de la entidad de la unidad (coincide con las dos primeras letras de la CLUES).
+dim_unidad_medica,cve_municipio_um,smallint,sí,,"Municipio de la unidad (MUNICIPIO_UM). NULL en 2022, donde la columna no existe."
+dim_unidad_medica,nombre_municipio_um,varchar(80),no,,"Nombre del municipio de la unidad, o NO DISPONIBLE EN EL EXTRACTO."
+dim_unidad_medica,cvegeo_um,char(5),sí,,Clave geoestadística del municipio de la unidad. NULL en 2022.
+dim_unidad_medica,tipo_miembro,varchar(40),no,,UNIDAD IDENTIFICADA POR CLUES o UNIDAD NO IDENTIFICADA (EXTRACTO 2022).

@@ -1,0 +1,64 @@
+{
+  "modelo": "qwen3:8b",
+  "organizacion": "Alibaba Cloud (Qwen)",
+  "licencia": "Apache 2.0",
+  "digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+  "detalles": {
+    "parent_model": "",
+    "format": "gguf",
+    "family": "qwen3",
+    "families": [
+      "qwen3"
+    ],
+    "parameter_size": "8.2B",
+    "quantization_level": "Q4_K_M",
+    "context_length": 40960,
+    "embedding_length": 4096,
+    "runner": "ggml"
+  },
+  "version_ollama": "0.40.13",
+  "opciones": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 20480,
+    "num_predict": 4000
+  },
+  "razonamiento": "desactivado",
+  "inicio": "2026-10-31T07:52:34",
+  "turnos": [
+    {
+      "turno": 1,
+      "prompt": "01_justificacion.md",
+      "segundos": 178.8,
+      "tokens_prompt": 4009,
+      "tokens_respuesta": 2311,
+      "tokens_por_segundo": 15.5,
+      "fin": "stop",
+      "caracteres_respuesta": 7629,
+      "caracteres_razonamiento": 0
+    },
+    {
+      "turno": 2,
+      "prompt": "02_ddl.md",
+      "segundos": 71.6,
+      "tokens_prompt": 6406,
+      "tokens_respuesta": 684,
+      "tokens_por_segundo": 14.1,
+      "fin": "stop",
+      "caracteres_respuesta": 2600,
+      "caracteres_razonamiento": 0
+    },
+    {
+      "turno": 3,
+      "prompt": "03_evidencia.md",
+      "segundos": 179.9,
+      "tokens_prompt": 7655,
+      "tokens_respuesta": 2166,
+      "tokens_por_segundo": 13.0,
+      "fin": "stop",
+      "caracteres_respuesta": 7552,
+      "caracteres_razonamiento": 0
+    }
+  ],
+  "fin": "2026-10-31T07:59:44"
+}

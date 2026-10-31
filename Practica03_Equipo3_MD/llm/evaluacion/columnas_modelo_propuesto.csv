@@ -1,0 +1,175 @@
+tabla,columna,tipo,admite_nulos,campo_de_origen,excluida
+dw.dim_atencion,id_atencion,smallint,NO,,False
+dw.dim_atencion,origen,smallint,NO,origen,False
+dw.dim_atencion,origen_desc,character varying,NO,origen,False
+dw.dim_atencion,tipo_paciente,smallint,NO,tipo_paciente,False
+dw.dim_atencion,tipo_paciente_desc,character varying,NO,tipo_paciente,False
+dw.dim_atencion,neumonia,smallint,NO,neumonia,False
+dw.dim_atencion,neumonia_desc,character varying,NO,neumonia,False
+dw.dim_atencion,intubado,smallint,NO,intubado,False
+dw.dim_atencion,intubado_desc,character varying,NO,intubado,False
+dw.dim_atencion,uci,smallint,NO,uci,False
+dw.dim_atencion,uci_desc,character varying,NO,uci,False
+dw.dim_atencion,nivel_gravedad,smallint,NO,,False
+dw.dim_atencion,gravedad_desc,character varying,NO,,False
+dw.dim_calidad,id_calidad,smallint,NO,,False
+dw.dim_calidad,edad_no_valida,boolean,NO,,False
+dw.dim_calidad,fechas_en_desorden,boolean,NO,,False
+dw.dim_calidad,sintomas_mas_de_10_dias,boolean,NO,,False
+dw.dim_calidad,demora_extrema,boolean,NO,,False
+dw.dim_calidad,embarazo_edad_atipica,boolean,NO,,False
+dw.dim_calidad,tabaquismo_menor_10,boolean,NO,,False
+dw.dim_calidad,municipio_fuera_catalogo,boolean,NO,,False
+dw.dim_calidad,entidad_nac_inconsistente,boolean,NO,,False
+dw.dim_calidad,clues_ficticia,boolean,NO,,False
+dw.dim_calidad,defuncion_ambulatoria,boolean,NO,,False
+dw.dim_calidad,intubado_sin_uci,boolean,NO,,False
+dw.dim_calidad,num_banderas,smallint,NO,,False
+dw.dim_calidad,nivel_maximo,character varying,NO,,False
+dw.dim_calidad,descripcion,character varying,NO,,False
+dw.dim_comorbilidad,id_comorbilidad,integer,NO,,False
+dw.dim_comorbilidad,diabetes,smallint,NO,diabetes,False
+dw.dim_comorbilidad,epoc,smallint,NO,epoc,False
+dw.dim_comorbilidad,asma,smallint,NO,asma,False
+dw.dim_comorbilidad,inmusupr,smallint,NO,inmusupr,False
+dw.dim_comorbilidad,hipertension,smallint,NO,hipertension,False
+dw.dim_comorbilidad,otra_com,smallint,NO,otra_com,False
+dw.dim_comorbilidad,cardiovascular,smallint,NO,cardiovascular,False
+dw.dim_comorbilidad,obesidad,smallint,NO,obesidad,False
+dw.dim_comorbilidad,renal_cronica,smallint,NO,renal_cronica,False
+dw.dim_comorbilidad,tabaquismo,smallint,NO,tabaquismo,False
+dw.dim_comorbilidad,num_comorbilidades,smallint,NO,,False
+dw.dim_comorbilidad,grupo_comorbilidades,character varying,NO,,False
+dw.dim_comorbilidad,tiene_comorbilidad,boolean,NO,,False
+dw.dim_comorbilidad,num_sin_dato,smallint,NO,,False
+dw.dim_comorbilidad,descripcion,character varying,NO,,False
+dw.dim_diagnostico,id_diagnostico,smallint,NO,,False
+dw.dim_diagnostico,otro_caso,smallint,NO,otro_caso,False
+dw.dim_diagnostico,otro_caso_desc,character varying,NO,otro_caso,False
+dw.dim_diagnostico,toma_muestra_lab,smallint,NO,toma_muestra_lab,False
+dw.dim_diagnostico,toma_muestra_lab_desc,character varying,NO,toma_muestra_lab,False
+dw.dim_diagnostico,resultado_lab,smallint,NO,resultado_lab,False
+dw.dim_diagnostico,resultado_lab_desc,character varying,NO,resultado_lab,False
+dw.dim_diagnostico,toma_muestra_antigeno,smallint,NO,toma_muestra_antigeno,False
+dw.dim_diagnostico,toma_muestra_antigeno_desc,character varying,NO,toma_muestra_antigeno,False
+dw.dim_diagnostico,resultado_antigeno,smallint,NO,resultado_antigeno,False
+dw.dim_diagnostico,resultado_antigeno_desc,character varying,NO,resultado_antigeno,False
+dw.dim_diagnostico,clasificacion_final,smallint,NO,clasificacion_final,False
+dw.dim_diagnostico,clasificacion_final_desc,character varying,NO,clasificacion_final,False
+dw.dim_diagnostico,grupo_clasificacion,character varying,NO,,False
+dw.dim_diagnostico,es_confirmado,boolean,NO,,False
+dw.dim_edad,id_edad,smallint,NO,edad,False
+dw.dim_edad,edad,smallint,NO,edad,False
+dw.dim_edad,quinquenio,character varying,NO,,False
+dw.dim_edad,grupo_decenal,character varying,NO,,False
+dw.dim_edad,grupo_etario,character varying,NO,,False
+dw.dim_edad,es_edad_valida,boolean,NO,,False
+dw.dim_edad,nota,character varying,YES,,False
+dw.dim_entidad,id_entidad,smallint,NO,,False
+dw.dim_entidad,cve_entidad,smallint,NO,,False
+dw.dim_entidad,nombre_entidad,character varying,NO,,False
+dw.dim_entidad,abrev_entidad,character varying,YES,,False
+dw.dim_entidad,tipo_miembro,character varying,NO,,False
+dw.dim_entidad,es_entidad_federativa,boolean,NO,,False
+dw.dim_extracto,id_extracto,smallint,NO,,False
+dw.dim_extracto,archivo_origen,character varying,NO,,False
+dw.dim_extracto,fecha_actualizacion,date,NO,fecha_actualizacion,False
+dw.dim_extracto,anio_nominal,smallint,NO,,False
+dw.dim_extracto,columnas_csv,smallint,NO,,False
+dw.dim_extracto,trae_unidad_y_resultado,boolean,NO,,False
+dw.dim_extracto,filas_csv,integer,NO,,False
+dw.dim_extracto,casos_unicos,integer,NO,,False
+dw.dim_extracto,fecha_sintomas_min,date,NO,,False
+dw.dim_extracto,fecha_sintomas_max,date,NO,,False
+dw.dim_extracto,periodo_efectivo,character varying,NO,,False
+dw.dim_paciente,id_paciente,smallint,NO,,False
+dw.dim_paciente,sexo,smallint,NO,sexo,False
+dw.dim_paciente,sexo_desc,character varying,NO,sexo,False
+dw.dim_paciente,embarazo,smallint,NO,embarazo,False
+dw.dim_paciente,embarazo_desc,character varying,NO,embarazo,False
+dw.dim_paciente,habla_lengua_indig,smallint,NO,habla_lengua_indig,False
+dw.dim_paciente,habla_lengua_indig_desc,character varying,NO,habla_lengua_indig,False
+dw.dim_paciente,indigena,smallint,NO,indigena,False
+dw.dim_paciente,indigena_desc,character varying,NO,indigena,False
+dw.dim_paciente,nacionalidad,smallint,NO,nacionalidad,False
+dw.dim_paciente,nacionalidad_desc,character varying,NO,nacionalidad,False
+dw.dim_paciente,migrante,smallint,NO,migrante,False
+dw.dim_paciente,migrante_desc,character varying,NO,migrante,False
+dw.dim_pais,id_pais,smallint,NO,,False
+dw.dim_pais,pais_original,character varying,NO,,False
+dw.dim_pais,pais,character varying,NO,,False
+dw.dim_pais,tipo_valor,character varying,NO,,False
+dw.dim_pais,es_mexico,boolean,NO,,False
+dw.dim_pais,nota,character varying,YES,,False
+dw.dim_tiempo,id_tiempo,integer,NO,,False
+dw.dim_tiempo,fecha,date,YES,,False
+dw.dim_tiempo,tipo_miembro,character varying,NO,,False
+dw.dim_tiempo,anio,smallint,YES,,False
+dw.dim_tiempo,semestre,smallint,YES,,False
+dw.dim_tiempo,trimestre,smallint,YES,,False
+dw.dim_tiempo,mes,smallint,YES,,False
+dw.dim_tiempo,nombre_mes,character varying,YES,,False
+dw.dim_tiempo,anio_mes,character,YES,,False
+dw.dim_tiempo,dia,smallint,YES,,False
+dw.dim_tiempo,dia_semana,smallint,YES,,False
+dw.dim_tiempo,nombre_dia,character varying,YES,,False
+dw.dim_tiempo,es_fin_de_semana,boolean,YES,,False
+dw.dim_tiempo,anio_epi,smallint,YES,,False
+dw.dim_tiempo,semana_epi,smallint,YES,,False
+dw.dim_tiempo,inicio_semana_epi,date,YES,,False
+dw.dim_tiempo,temporada_influenza,character varying,YES,,False
+dw.dim_tiempo,es_festivo,boolean,YES,,False
+dw.dim_tiempo,nombre_festivo,character varying,YES,,False
+dw.dim_tiempo,tipo_dia,character varying,YES,,False
+dw.dim_ubicacion,id_ubicacion,integer,NO,,False
+dw.dim_ubicacion,cve_entidad,smallint,NO,,False
+dw.dim_ubicacion,nombre_entidad,character varying,NO,,False
+dw.dim_ubicacion,abrev_entidad,character varying,YES,,False
+dw.dim_ubicacion,cve_municipio,smallint,NO,,False
+dw.dim_ubicacion,nombre_municipio,character varying,NO,,False
+dw.dim_ubicacion,cvegeo,character,YES,,False
+dw.dim_ubicacion,tipo_miembro,character varying,NO,,False
+dw.dim_ubicacion,es_entidad_federativa,boolean,NO,,False
+dw.dim_unidad_medica,id_unidad_medica,integer,NO,,False
+dw.dim_unidad_medica,clues,character varying,YES,clues,False
+dw.dim_unidad_medica,es_unidad_identificada,boolean,NO,,False
+dw.dim_unidad_medica,es_clues_ficticia,boolean,NO,,False
+dw.dim_unidad_medica,cve_sector,smallint,NO,sector,False
+dw.dim_unidad_medica,nombre_sector,character varying,NO,,False
+dw.dim_unidad_medica,tipo_institucion,character varying,NO,,False
+dw.dim_unidad_medica,cve_entidad_um,smallint,NO,entidad_um,False
+dw.dim_unidad_medica,nombre_entidad_um,character varying,NO,,False
+dw.dim_unidad_medica,abrev_entidad_um,character varying,YES,,False
+dw.dim_unidad_medica,cve_municipio_um,smallint,YES,municipio_um,False
+dw.dim_unidad_medica,nombre_municipio_um,character varying,NO,,False
+dw.dim_unidad_medica,cvegeo_um,character,YES,,False
+dw.dim_unidad_medica,tipo_miembro,character varying,NO,,False
+dw.fact_casos_covid,id_fact_covid,bigint,NO,,False
+dw.fact_casos_covid,id_registro,character varying,NO,id_registro,False
+dw.fact_casos_covid,id_fecha_sintomas,integer,NO,fecha_sintomas,False
+dw.fact_casos_covid,id_fecha_ingreso,integer,NO,fecha_ingreso,False
+dw.fact_casos_covid,id_fecha_resultado,integer,NO,fecha_resultado,False
+dw.fact_casos_covid,id_fecha_defuncion,integer,NO,fecha_def,False
+dw.fact_casos_covid,id_ubicacion_residencia,integer,NO,,False
+dw.fact_casos_covid,id_entidad_nacimiento,smallint,NO,entidad_nac,False
+dw.fact_casos_covid,id_unidad_medica,integer,NO,,False
+dw.fact_casos_covid,id_paciente,smallint,NO,,False
+dw.fact_casos_covid,id_pais_nacionalidad,smallint,NO,pais_nacionalidad,False
+dw.fact_casos_covid,id_pais_origen,smallint,NO,pais_origen,False
+dw.fact_casos_covid,id_edad,smallint,NO,edad,False
+dw.fact_casos_covid,id_comorbilidad,integer,NO,,False
+dw.fact_casos_covid,id_atencion,smallint,NO,,False
+dw.fact_casos_covid,id_diagnostico,smallint,NO,,False
+dw.fact_casos_covid,id_extracto,smallint,NO,,False
+dw.fact_casos_covid,id_calidad,smallint,NO,,False
+dw.fact_casos_covid,casos,smallint,NO,,False
+dw.fact_casos_covid,confirmados,smallint,NO,,False
+dw.fact_casos_covid,hospitalizados,smallint,NO,,False
+dw.fact_casos_covid,ingresos_uci,smallint,NO,,False
+dw.fact_casos_covid,intubados,smallint,NO,,False
+dw.fact_casos_covid,con_neumonia,smallint,NO,,False
+dw.fact_casos_covid,defunciones,smallint,NO,,False
+dw.fact_casos_covid,edad_anios,smallint,YES,,False
+dw.fact_casos_covid,dias_sintomas_a_ingreso,smallint,YES,,False
+dw.fact_casos_covid,dias_ingreso_a_resultado,smallint,YES,,False
+dw.fact_casos_covid,dias_ingreso_a_defuncion,smallint,YES,,False

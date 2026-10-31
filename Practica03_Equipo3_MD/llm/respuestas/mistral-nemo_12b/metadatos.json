@@ -1,0 +1,64 @@
+{
+  "modelo": "mistral-nemo:12b",
+  "organizacion": "Mistral AI y NVIDIA",
+  "licencia": "Apache 2.0",
+  "digest": "e7e06d107c6c86ed0cf45445f1790720b5092149c4c95f4d965844e9afbfdc89",
+  "detalles": {
+    "parent_model": "",
+    "format": "gguf",
+    "family": "llama",
+    "families": [
+      "llama"
+    ],
+    "parameter_size": "12.2B",
+    "quantization_level": "Q4_0",
+    "context_length": 1024000,
+    "embedding_length": 5120,
+    "runner": "ggml"
+  },
+  "version_ollama": "0.40.13",
+  "opciones": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 20480,
+    "num_predict": 4000
+  },
+  "razonamiento": "no aplica (el modelo no razona)",
+  "inicio": "2026-10-31T08:20:13",
+  "turnos": [
+    {
+      "turno": 1,
+      "prompt": "01_justificacion.md",
+      "segundos": 122.8,
+      "tokens_prompt": 4125,
+      "tokens_respuesta": 755,
+      "tokens_por_segundo": 11.7,
+      "fin": "stop",
+      "caracteres_respuesta": 3350,
+      "caracteres_razonamiento": 0
+    },
+    {
+      "turno": 2,
+      "prompt": "02_ddl.md",
+      "segundos": 65.8,
+      "tokens_prompt": 4960,
+      "tokens_respuesta": 624,
+      "tokens_por_segundo": 11.7,
+      "fin": "stop",
+      "caracteres_respuesta": 1933,
+      "caracteres_razonamiento": 0
+    },
+    {
+      "turno": 3,
+      "prompt": "03_evidencia.md",
+      "segundos": 60.6,
+      "tokens_prompt": 6134,
+      "tokens_respuesta": 491,
+      "tokens_por_segundo": 11.4,
+      "fin": "stop",
+      "caracteres_respuesta": 1790,
+      "caracteres_razonamiento": 0
+    }
+  ],
+  "fin": "2026-10-31T08:24:22"
+}

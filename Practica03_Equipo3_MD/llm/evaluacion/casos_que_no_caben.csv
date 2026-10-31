@@ -1,0 +1,3 @@
+corrida,motivo,por_dim_resultado,por_dim_paciente,por_dim_comorbilidad,casos_rechazados,porcentaje
+granite4.2_8b,"CHECK que no aceptan 97 ni 98, y edad <= 120",1998367,951953,16781,2051620,97.7
+mistral-nemo_12b,pais_nacionalidad y pais_origen como VARCHAR(50),,,,3,0.0001

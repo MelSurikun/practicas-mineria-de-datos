@@ -8,6 +8,9 @@ Practica02_Equipo3_MD/Diccionario_Datos/diccionario_variables.csv
 Ejemplo/
 Entregable_Profesor/
 
+# De la PRACTICA03 (el reporte solo se pone en Drive)
+Practica03_Equipo3_MD/**/*.docx
+
 # Archivos que puedan contener contraseñas o credenciales
 *.env
 *password*

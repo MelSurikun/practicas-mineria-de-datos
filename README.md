@@ -67,6 +67,23 @@ Los principales procesos abordados son:
 
 ---
 
+### Práctica 03 — Modelo multidimensional, proceso ETL y exploración analítica
+
+**Tema:** COVID-19 (continúa con la tabla `covid_historica` de la Práctica 02)
+
+En esta práctica se diseña un modelo multidimensional a partir de la tabla histórica de ingesta, se migran los datos con un proceso ETL y se explora el modelo con preguntas de una, dos y tres dimensiones.
+
+Los principales procesos abordados son:
+
+* Justificación y diseño del modelo multidimensional (hechos, dimensiones, medidas y jerarquías).
+* Comparación del diseño con modelos de lenguaje (LLM) de software libre.
+* Diagrama del modelo.
+* Diseño e implementación del proceso ETL.
+* Exploración analítica de una, dos y tres dimensiones.
+* Calidad de los datos después de la migración.
+
+---
+
 ## Herramientas
 
 Durante las diferentes prácticas se podrán utilizar distintas herramientas y tecnologías de acuerdo con los requerimientos de cada actividad.
@@ -90,13 +107,12 @@ Entre ellas:
 La estructura del repositorio se irá actualizando conforme se incorporen nuevas prácticas.
 
 ```text
-mineria-de-datos/
+practicas-mineria-de-datos/
 │
-│
-├── practica-02/
+├── Practica02_Equipo3_MD/
 │   └── ...
 │
-├── practica-03/
+├── Practica03_Equipo3_MD/
 │   └── ...
 │
 └── README.md

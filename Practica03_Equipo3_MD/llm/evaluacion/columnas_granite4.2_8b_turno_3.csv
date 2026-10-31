@@ -1,0 +1,12 @@
+tabla,columna,tipo,admite_nulos,campo_de_origen,excluida
+public.dim_resultado,id_res,integer,NO,,False
+public.dim_resultado,origen,integer,NO,origen,False
+public.dim_resultado,sector,integer,NO,sector,False
+public.dim_resultado,tipo_paciente,integer,NO,tipo_paciente,False
+public.dim_resultado,intubado,integer,NO,intubado,False
+public.dim_resultado,neumonia,integer,NO,neumonia,False
+public.dim_resultado,resultado_lab,integer,NO,resultado_lab,False
+public.dim_resultado,resultado_antigeno,integer,NO,resultado_antigeno,False
+public.dim_resultado,clasificacion_final,integer,NO,clasificacion_final,False
+public.dim_resultado,uci,integer,NO,uci,False
+public.dim_resultado,otro_caso,integer,NO,otro_caso,False

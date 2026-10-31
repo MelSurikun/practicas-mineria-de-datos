@@ -1,0 +1,17 @@
+{
+  "model": "qwen3:8b",
+  "created_at": "2026-10-31T19:18:52.426201Z",
+  "message": {
+    "role": "assistant",
+    "content": "```sql\n-- Creación de tablas para el modelo multidimensional de datos de casos de COVID-19\n\nCREATE TABLE dim_tiempo (\n    id_tiempo SERIAL PRIMARY KEY,\n    fecha DATE,\n    anio INT,\n    mes INT,\n    dia INT,\n    nombre_mes VARCHAR(20),\n    dia_semana INT,\n    nombre_dia VARCHAR(20),\n    trimestre INT,\n    dia_festivo_tipo VARCHAR(50),\n    tipo_fecha VARCHAR(50)\n);\n\nCREATE TABLE dim_localizacion (\n    id_loc SERIAL PRIMARY KEY,\n    pais VARCHAR(100),\n    estado VARCHAR(100),\n    municipio VARCHAR(100),\n    localidad VARCHAR(100),\n    nombre_est VARCHAR(100),\n    nombre_mun VARCHAR(100),\n    nombre_loc VARCHAR(100),\n    pob_mun INT,\n    pob_loc INT\n);\n\nCREATE TABLE dim_paciente (\n    id_paciente SERIAL PRIMARY KEY,\n    sexo VARCHAR(10),\n    embarazo SMALLINT,\n    habla_lengua_indig SMALLINT,\n    indigena SMALLINT,\n    nacionalidad SMALLINT,\n    migrante SMALLINT\n);\n\nCREATE TABLE dim_comorbilidad (\n    id_comorbilidad SERIAL PRIMARY KEY,\n    diabetes SMALLINT,\n    epoc SMALLINT,\n    asma SMALLINT,\n    inmusupr SMALLINT,\n    hipertension SMALLINT,\n    obesidad SMALLINT,\n    renal_cronica SMALLINT,\n    cardiovascular SMALLINT,\n    tabaquismo SMALLINT\n);\n\nCREATE TABLE dim_resultado (\n    id_resultado SERIAL PRIMARY KEY,\n    clasificacion_final SMALLINT,\n    resultado_lab SMALLINT,\n    resultado_antigeno SMALLINT,\n    uci SMALLINT,\n    fecha_def DATE\n);\n\nCREATE TABLE fact_casos_covid (\n    id_fact_covid SERIAL PRIMARY KEY,\n    id_registro TEXT,\n    id_fecha_ingreso_dim INT,\n    id_fecha_def_dim INT,\n    id_fecha_sintomas_dim INT,\n    id_residencia_dim INT,\n    id_comorbilidad_dim INT,\n    id_paciente INT,\n    edad SMALLINT,\n    tipo_paciente SMALLINT,\n    intubado SMALLINT,\n    neumonia SMALLINT,\n    toma_muestra_lab SMALLINT,\n    resultado_lab SMALLINT,\n    toma_muestra_antigeno SMALLINT,\n    resultado_antigeno SMALLINT,\n    clasificacion_final SMALLINT,\n    fecha_resultado DATE,\n    migrante SMALLINT,\n    pais_nacionalidad TEXT,\n    pais_origen TEXT,\n    uci SMALLINT,\n    CONSTRAINT fk_fecha_ingreso FOREIGN KEY (id_fecha_ingreso_dim) REFERENCES dim_tiempo(id_tiempo),\n    CONSTRAINT fk_fecha_def FOREIGN KEY (id_fecha_def_dim) REFERENCES dim_tiempo(id_tiempo),\n    CONSTRAINT fk_fecha_sintomas FOREIGN KEY (id_fecha_sintomas_dim) REFERENCES dim_tiempo(id_tiempo),\n    CONSTRAINT fk_residencia FOREIGN KEY (id_residencia_dim) REFERENCES dim_localizacion(id_loc),\n    CONSTRAINT fk_comorbilidad FOREIGN KEY (id_comorbilidad_dim) REFERENCES dim_comorbilidad(id_comorbilidad),\n    CONSTRAINT fk_paciente FOREIGN KEY (id_paciente) REFERENCES dim_paciente(id_paciente)\n);\n```"
+  },
+  "done": true,
+  "done_reason": "stop",
+  "total_duration": 127711636209,
+  "load_duration": 12580625,
+  "prompt_eval_count": 6406,
+  "prompt_eval_cached_count": 3996,
+  "prompt_eval_duration": 45363705000,
+  "eval_count": 684,
+  "eval_duration": 82289449000
+}
