@@ -1,0 +1,16 @@
+archivo,columna,no_convertibles,con_espacios_o_tabuladores,no_solo_digitos
+2022,edad,0,0,0
+2022,entidad_nac,0,0,0
+2022,entidad_res,0,0,0
+2022,entidad_um,0,0,0
+2022,localidad_res,0,0,0
+2022,migrante,0,2,2
+2022,municipio_res,0,0,0
+2022,origen,0,0,0
+2022,sector,0,0,0
+2022,sexo,0,0,0
+2022,tipo_paciente,0,0,0
+2022,uci,0,0,0
+2023,edad,0,0,0
+2023,migrante,0,0,0
+2023,municipio_um,0,0,0

@@ -1,0 +1,14 @@
+valor,problema,en_pais_nacionalidad,en_pais_origen
+Otro,Categoría genérica: no identifica un país,697,225
+SE DESCONOCE,"Valor faltante escrito como texto, no como el 99 del diccionario",49,1
+República Checa y República Eslovaca,Estado que se dividió en 1993,8,2
+Zona Neutral,"Territorio, no un país vigente",9,0
+Campione DItalia,Apóstrofo perdido (Campione d'Italia),4,0
+Thailandia,Error de escritura (Tailandia),3,1
+Azerbaiyán - Islas Azores,Dos lugares distintos en un solo valor,1,2
+"Países de la Ex-U.R.S.S., excepto Ucrania y Bielorusia","Agrupación de países, no un país; escribe Bielorusia, y el valor suelto dice Bielorrusia",2,1
+Republica Democrática del Congo,"Sin acento, a diferencia del resto de ""República ...""",1,1
+Yemen Democrática,Estado que dejó de existir en 1990,1,1
+Antártica,"Continente, no un país",1,0
+Rhuanda,Error de escritura (Ruanda),1,0
+Zona Especial Canaria,"Régimen fiscal de España, no un país",1,0

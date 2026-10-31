@@ -1,0 +1,5 @@
+tipo,nombre,detalle,filas
+linaje,muestra100k_COVID19MEXICOLOC2023.csv,,99999
+linaje,muestra200k_COVID19MEXICOLOC2022.csv,,1999998
+restricción,covid_historica_id_registro_not_null,NOT NULL id_registro,
+restricción,pk_covid_historica,PRIMARY KEY (id_registro),

@@ -1,0 +1,6 @@
+origen,columna,centinela,filas
+covid_historica,fecha_def (NULL),2082438,2099997
+covid_historica,"fecha_resultado (NULL, solo 2023)",82283,99999
+covid_stage_2022,fecha_def,3966430,3999996
+covid_stage_2023,fecha_def,99223,99999
+covid_stage_2023,fecha_resultado,82283,99999

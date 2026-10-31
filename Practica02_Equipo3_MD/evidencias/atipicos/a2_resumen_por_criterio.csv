@@ -1,0 +1,13 @@
+familia,criterio,umbral,registros,pct,valor_min,valor_max
+regla de dominio,sintomas_fuera_de_ventana_10_dias,> 10 días,18725,0.8917,11,273
+regla de dominio,edad_nacimiento_1900,año de ingreso - edad <= 1900,34,0.0016,122,122
+regla de dominio,defuncion_antes_del_ingreso,< 0 días,5,0.0002,-14,-1
+regla de dominio,resultado_antes_del_ingreso,< 0 días,4,0.0002,-3,-1
+regla de dominio,defuncion_antes_de_sintomas,< 0 días,1,0.0000,-8,-8
+estadistica robusta,edad_z_mad_mayor_3_5,|0.6745 (edad - 36) / 12| > 3.5,820,0.0390,99,122
+estadistica robusta,sintomas_a_ingreso_extremo,> 31.0 días (Tukey sobre ln),355,0.0169,32,273
+estadistica robusta,ingreso_a_defuncion_extremo,> 95.0 días (Tukey sobre ln),54,0.0026,98,366
+estadistica robusta,edad_tukey_3_iqr,> 121,34,0.0016,122,122
+contextual,tabaquismo_menor_de_10,edad < 10,116,0.0055,0,9
+contextual,embarazo_mayor_de_55,edad > 55,86,0.0041,56,89
+contextual,embarazo_menor_de_10,edad < 10,31,0.0015,0,9

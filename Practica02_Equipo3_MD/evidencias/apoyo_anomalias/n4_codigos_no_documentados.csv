@@ -1,0 +1,7 @@
+valor,lectura,registros
+clues = CHXXX005555,"Una sola CLUES ficticia (XXX), toda con sector 99 en Chihuahua",36
+edad = 122,Año de nacimiento implícito 1900 (ver sql/10_atipicos.sql),34
+entidad_nac = 99 con nacionalidad extranjera,Se usa 99 (no especificado) donde correspondería 97 (no aplica),27181
+entidad_nac = 99 con nacionalidad mexicana,Entidad de nacimiento sin capturar,5
+localidad_res = 9999,LOCALIDAD_RES no tiene catálogo; 9999 se repite mucho más que cualquier clave alta,2116
+municipio_res = 999,NO ESPECIFICADO en el catálogo de municipios,26

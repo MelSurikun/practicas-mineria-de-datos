@@ -1,0 +1,8 @@
+largo,patron,filas,distintos,ejemplo_min,ejemplo_max
+6,6 caracteres hexadecimales,896741,896741,013a0e,ee579c
+7,"g, 0 z y 6 hexadecimales",847503,847503,g00000b,g467eb5
+7,"g, 1 z y 5 hexadecimales",294387,294387,gz10000,gz5cc5f
+7,"g, 2 z y 4 hexadecimales",57539,57539,gzz1000,gzzffff
+7,"g, 3 z y 3 hexadecimales",3586,3586,gzzz100,gzzzfff
+7,"g, 4 z y 2 hexadecimales",228,228,gzzzz10,gzzzzfe
+7,"g, 5 z y 1 hexadecimales",13,13,gzzzzz1,gzzzzzf

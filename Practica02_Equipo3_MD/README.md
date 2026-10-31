@@ -49,10 +49,12 @@ Practica02_Equipo3_MD/
 ├── .gitignore           : excluye los CSV pesados, el material del curso y cualquier credencial
 ├── Covid_Muestras/      : dónde va cada CSV, y todo el detalle del dataset (los CSV en sí no se suben)
 ├── Diccionario_Datos/   : catálogos y descriptor de columnas, necesarios para reproducir el proceso
-├── sql/                 : scripts de creación de BD, stages, ingesta, tipado, consolidación, catálogos y anomalías
-├── evidencias/          : inspección de archivos, bitácora de errores, conteos
+├── sql/                 : scripts de creación de BD, stages, ingesta, tipado, consolidación, catálogos y anomalías;
+│                          validación del esquema, atípicos y apoyo de anomalías (08 a 11), propuestas/ y pruebas/
+├── evidencias/          : inspección de archivos, bitácora de errores, conteos; resultados de 09 a 11 en CSV y pruebas
 ├── graficas/            : visualizaciones exportadas (PNG), también embebidas en el reporte
-├── scripts/             : scripts de Python auxiliares (inspección, reparación de CSV, gráficas)
+├── scripts/             : scripts de Python auxiliares (inspección, reparación de CSV, catálogos, gráficas,
+│                          resultados en CSV y perfil de los CSV)
 └── reporte/             : reporte final de la práctica (.docx)
 ```
 
@@ -83,7 +85,25 @@ suben a git por su tamaño).
    Gráficas 3 y 6 y para el análisis de dependencias entre atributos:
    `python scripts/exportar_catalogos.py` y luego `sql/06_catalogos.sql`.
 7. Crear la vista de validación cruzada entre atributos: `sql/07_anomalias.sql`.
-8. Generar las visualizaciones del reporte: `python scripts/graficar.py`.
+8. Cargar los otros ocho catálogos y el diccionario de variables:
+   `python scripts/exportar_catalogos_complementarios.py` y luego
+   `sql/08_catalogos_complementarios.sql`.
+9. Validar el esquema tipado contra el diccionario y los catálogos (solo lectura):
+   `sql/09_validacion_esquema.sql`. Usa `pg_input_is_valid()`, que existe desde PostgreSQL 16.
+10. Marcar los valores atípicos en la tabla `covid_atipicos`, sin borrar ni modificar
+    `covid_historica`: `sql/10_atipicos.sql`.
+11. Contrastar las anomalías con el diccionario y los catálogos (solo lectura):
+    `sql/11_apoyo_anomalias.sql`. Para guardar en CSV los resultados de 09 a 11, que son los
+    de `evidencias/`, se corre cada uno con
+    `python scripts/ejecutar_consultas.py sql/09_validacion_esquema.sql validacion_esquema`
+    (y lo mismo con `sql/10_atipicos.sql atipicos` y `sql/11_apoyo_anomalias.sql apoyo_anomalias`).
+12. Generar las visualizaciones del reporte: `python scripts/graficar.py` y después
+    `python scripts/graficar_atipicos.py`, que deja las Gráficas 5 y 6 como van en el reporte.
+
+Los scripts 08 a 11 fijan UTF-8 antes de su primera sentencia: en Windows, psql lee los archivos
+como WIN1252 y, sin esa línea, una comparación como `pais_nacionalidad = 'México'` da 0 filas.
+Las propuestas y pruebas opcionales de `sql/propuestas/` y `sql/pruebas/` se explican en
+`sql/README.md`.
 
 La misma carga, documentada con interfaz gráfica en vez de línea de comandos (pgAdmin y
 SSMS), está en `GUIA_INTERFAZ_GRAFICA.md`.

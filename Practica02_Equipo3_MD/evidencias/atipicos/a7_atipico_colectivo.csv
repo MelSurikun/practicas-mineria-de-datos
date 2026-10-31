@@ -1,0 +1,3 @@
+edad_122,registros,sintomas_desde,sintomas_hasta,ingreso_desde,ingreso_hasta,demora_mediana,fallecidos
+False,63,2022-01-11,2022-02-23,2022-03-08,2022-04-19,74.0,0
+True,24,2022-01-11,2022-01-30,2022-03-07,2022-04-19,69.5,0

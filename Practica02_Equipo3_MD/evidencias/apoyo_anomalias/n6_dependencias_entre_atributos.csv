@@ -1,0 +1,21 @@
+num,regla,origen_de_la_regla,violaciones
+1,MUNICIPIO_RES existe dentro de ENTIDAD_RES,Catálogo de municipios,1
+2,MUNICIPIO_UM existe dentro de ENTIDAD_UM (2023),Catálogo de municipios,0
+3,Las dos letras iniciales de CLUES son la abreviatura de ENTIDAD_UM (2023),Catálogo de entidades,0
+4,CLUES de IMSS-Oportunidades (IMO) con SECTOR = IMSS-BIENESTAR (2023),Catálogo de sectores,33
+5,NACIONALIDAD = 1 (mexicana) si y solo si PAIS_NACIONALIDAD = México,Diccionario,0
+6,Extranjeros con ENTIDAD_NAC = 97 (no aplica),Catálogo de entidades,27181
+7,Mexicanos con ENTIDAD_NAC entre 01 y 32,Catálogo de entidades,5
+8,MIGRANTE = 1 si y solo si PAIS_ORIGEN distinto de 97,Diccionario,0
+9,Hombres con EMBARAZO = 97 (no aplica),Catálogo SI_NO,0
+10,Mujeres con EMBARAZO distinto de 97,Catálogo SI_NO,0
+11,Ambulatorio si y solo si INTUBADO = 97,Diccionario (TIPO_PACIENTE),0
+12,Ambulatorio si y solo si UCI = 97,Diccionario (TIPO_PACIENTE),0
+13,Sin muestra de laboratorio si y solo si RESULTADO_LAB = 97,Catálogo RESULTADO_LAB,0
+14,Sin muestra de antígeno si y solo si RESULTADO_ANTIGENO = 97,Catálogo RESULTADO_ANTIGENO,0
+15,CLASIFICACION_FINAL = 2 (dictaminación) solo en defunciones,Catálogo CLASIFICACION_FINAL,0
+16,CLASIFICACION_FINAL = 3 (confirmado) con una prueba positiva,Catálogo CLASIFICACION_FINAL,0
+17,Una prueba positiva lleva a CLASIFICACION_FINAL = 3,Catálogo CLASIFICACION_FINAL,0
+18,FECHA_DEF no es anterior a FECHA_INGRESO,Orden de los eventos,5
+19,FECHA_SINTOMAS no es posterior a FECHA_INGRESO,Orden de los eventos,0
+20,Ninguna fecha es posterior a FECHA_ACTUALIZACION,Orden de los eventos,0

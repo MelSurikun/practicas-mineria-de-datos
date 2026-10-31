@@ -1,0 +1,43 @@
+hoja,fila_excel,columna,original,normalizado
+Hoja1,3,formato_o_fuente,'TEXTO ','TEXTO'
+Hoja1,4,formato_o_fuente,'CATÁLOGO: ORIGEN                                                              ','CATÁLOGO: ORIGEN'
+Hoja1,5,formato_o_fuente,'CATÁLOGO: SECTOR                                                               ','CATÁLOGO: SECTOR'
+Hoja1,7,formato_o_fuente,'CATÁLOGO: SEXO                              ','CATÁLOGO: SEXO'
+Hoja1,11,formato_o_fuente,'CATÁLOGO: TIPO_PACIENTE ','CATÁLOGO: TIPO_PACIENTE'
+Hoja1,15,formato_o_fuente,'CATÁLOGO: SI_ NO                                                                  ','CATÁLOGO: SI_ NO'
+Hoja1,16,formato_o_fuente,'CATÁLOGO: SI_ NO                                                                  ','CATÁLOGO: SI_ NO'
+Hoja1,18,formato_o_fuente,'CATÁLOGO: NACIONALIDAD ','CATÁLOGO: NACIONALIDAD'
+Hoja1,19,formato_o_fuente,'CATÁLOGO: SI_ NO                                                                  ','CATÁLOGO: SI_ NO'
+Hoja1,20,formato_o_fuente,'CATÁLOGO: SI_ NO                                                                  ','CATÁLOGO: SI_ NO'
+Hoja1,21,descripcion,'Identifica si el paciente se autoidentifica como una persona indígena. ','Identifica si el paciente se autoidentifica como una persona indígena.'
+Hoja1,21,formato_o_fuente,'CATÁLOGO: SI_ NO                                                                  ','CATÁLOGO: SI_ NO'
+Hoja1,22,descripcion,'Identifica si el paciente tiene un diagnóstico de diabetes. ','Identifica si el paciente tiene un diagnóstico de diabetes.'
+Hoja1,22,formato_o_fuente,'CATÁLOGO: SI_ NO                                                                  ','CATÁLOGO: SI_ NO'
+Hoja1,23,descripcion,'Identifica si el paciente tiene un diagnóstico de EPOC. ','Identifica si el paciente tiene un diagnóstico de EPOC.'
+Hoja1,23,formato_o_fuente,'CATÁLOGO: SI_ NO                                                                  ','CATÁLOGO: SI_ NO'
+Hoja1,24,descripcion,'Identifica si el paciente tiene un diagnóstico de asma. ','Identifica si el paciente tiene un diagnóstico de asma.'
+Hoja1,24,formato_o_fuente,'CATÁLOGO: SI_ NO                                                                  ','CATÁLOGO: SI_ NO'
+Hoja1,25,formato_o_fuente,'CATÁLOGO: SI_ NO                                                                  ','CATÁLOGO: SI_ NO'
+Hoja1,26,descripcion,'Identifica si el paciente tiene un diagnóstico de hipertensión. ','Identifica si el paciente tiene un diagnóstico de hipertensión.'
+Hoja1,26,formato_o_fuente,'CATÁLOGO: SI_ NO                                                                  ','CATÁLOGO: SI_ NO'
+Hoja1,27,formato_o_fuente,'CATÁLOGO: SI_ NO                                                                  ','CATÁLOGO: SI_ NO'
+Hoja1,28,descripcion,'Identifica si el paciente tiene un diagnóstico de enfermedades cardiovasculares. ','Identifica si el paciente tiene un diagnóstico de enfermedades cardiovasculares.'
+Hoja1,28,formato_o_fuente,'CATÁLOGO: SI_ NO                                                                  ','CATÁLOGO: SI_ NO'
+Hoja1,29,formato_o_fuente,'CATÁLOGO: SI_ NO                                                                  ','CATÁLOGO: SI_ NO'
+Hoja1,30,formato_o_fuente,'CATÁLOGO: SI_ NO                                                                  ','CATÁLOGO: SI_ NO'
+Hoja1,31,formato_o_fuente,'CATÁLOGO: SI_ NO                                                                  ','CATÁLOGO: SI_ NO'
+Hoja1,32,formato_o_fuente,'CATÁLOGO: SI_ NO                                                                  ','CATÁLOGO: SI_ NO'
+Hoja1,34,descripcion,"'Identifica el resultado del análisis de la muestra reportado por el  laboratorio de la Red Nacional de Laboratorios de Vigilancia Epidemiológica (INDRE, LESP y LAVE) y laboratorios privados avalados por el InDRE cuyos resultados son registrados en SISVER. (Catálogo de resultados diagnósticos anexo).'","'Identifica el resultado del análisis de la muestra reportado por el laboratorio de la Red Nacional de Laboratorios de Vigilancia Epidemiológica (INDRE, LESP y LAVE) y laboratorios privados avalados por el InDRE cuyos resultados son registrados en SISVER. (Catálogo de resultados diagnósticos anexo).'"
+Hoja1,38,formato_o_fuente,'CATÁLOGO: SI_ NO                                                                  ','CATÁLOGO: SI_ NO'
+Hoja1,41,formato_o_fuente,'CATÁLOGO: SI_ NO                                                                  ','CATÁLOGO: SI_ NO'
+Catálogo SI_NO,2,si_no,'SI ','SI'
+Catálogo SI_NO,3,si_no,'NO ','NO'
+Catálogo RESULTADO_LAB,6,resultado_lab,'RESULTADO NO ADECUADO ','RESULTADO NO ADECUADO'
+Catálogo CLASIFICACION_FINAL,4,descripcion,'Confirmado por asociación aplica cuando el caso informó ser contacto de un positivo a COVID-19 (y este se encuentra registrado en el SISVER) y:\nAl caso no se le tomo muestra o la muestra resultó no válida. ','Confirmado por asociación aplica cuando el caso informó ser contacto de un positivo a COVID-19 (y este se encuentra registrado en el SISVER) y: Al caso no se le tomo muestra o la muestra resultó no válida.'
+Catálogo CLASIFICACION_FINAL,5,clasificacion,'CASO DE COVID-19 CONFIRMADO POR COMITÉ DE  DICTAMINACIÓN','CASO DE COVID-19 CONFIRMADO POR COMITÉ DE DICTAMINACIÓN'
+Catálogo CLASIFICACION_FINAL,5,descripcion,"'Confirmado por dictaminación solo aplica para defunciones bajo las siguientes condiciones: \nAl caso no se le tomo muestra o sí se tomó muestra, pero la muestra resultó no válida. '","'Confirmado por dictaminación solo aplica para defunciones bajo las siguientes condiciones: Al caso no se le tomo muestra o sí se tomó muestra, pero la muestra resultó no válida.'"
+Catálogo CLASIFICACION_FINAL,6,clasificacion,'CASO DE SARS-COV-2  CONFIRMADO','CASO DE SARS-COV-2 CONFIRMADO'
+Catálogo CLASIFICACION_FINAL,6,descripcion,"'Confirmado aplica cuando:\nEl caso tiene muestra de laboratorio o prueba antigénica y resultó positiva  a SARS-CoV-2, sin importar si el caso tienen asociación clínica epidemiológica.'","'Confirmado aplica cuando: El caso tiene muestra de laboratorio o prueba antigénica y resultó positiva a SARS-CoV-2, sin importar si el caso tienen asociación clínica epidemiológica.'"
+Catálogo CLASIFICACION_FINAL,7,descripcion,"'Inválido aplica cuando el caso no tienen asociación clínico epidemiológica, ni dictaminación a COVID-19. Se le tomó muestra de laboratorio y esta resultó no válida. '","'Inválido aplica cuando el caso no tienen asociación clínico epidemiológica, ni dictaminación a COVID-19. Se le tomó muestra de laboratorio y esta resultó no válida.'"
+Catálogo CLASIFICACION_FINAL,9,descripcion,"'Sospechoso aplica cuando: \nEl caso no tienen asociación clínico epidemiológica, ni dictaminación a COVID-19 y no se le tomó muestra, o se le tomó muestra de laboratorio y está pendiente de resultado, sin importar otra condición.'","'Sospechoso aplica cuando: El caso no tienen asociación clínico epidemiológica, ni dictaminación a COVID-19 y no se le tomó muestra, o se le tomó muestra de laboratorio y está pendiente de resultado, sin importar otra condición.'"
+Catálogo CLASIFICACION_FINAL,10,descripcion,"'Negativo aplica cuando el caso:\n1. Se le tomo muestra de laboratorio y ésta resultó: negativa a SARS-COV-2 o positiva a cualquier otro virus respiratorio (Influenza, VSR, Bocavirus, otros) sin importar que este caso tenga asociación clínico epidemiológica o dictaminación a COVID-19.\n2. Se le tomó muestra antigénica que resultó negativa a SARS-COV-2 y al caso no se le tomó muestra de laboratorio ni se le confirmo por asosiación epidemiológica o por dictaminación clínica epidemiológica.'","'Negativo aplica cuando el caso: 1. Se le tomo muestra de laboratorio y ésta resultó: negativa a SARS-COV-2 o positiva a cualquier otro virus respiratorio (Influenza, VSR, Bocavirus, otros) sin importar que este caso tenga asociación clínico epidemiológica o dictaminación a COVID-19. 2. Se le tomó muestra antigénica que resultó negativa a SARS-COV-2 y al caso no se le tomó muestra de laboratorio ni se le confirmo por asosiación epidemiológica o por dictaminación clínica epidemiológica.'"

@@ -1,0 +1,45 @@
+pos,columna,tamano_ejemplo,largo_max_2022,largo_max_2023,resultado
+1,fecha_actualizacion,50,10,10,Cabe
+2,id_registro,50,7,7,Cabe
+3,origen,20,1,1,Cabe
+4,sector,20,2,2,Cabe
+5,entidad_um,20,2,2,Cabe
+6,municipio_um,,,3,La columna no está en el ejemplo
+7,clues,,,11,La columna no está en el ejemplo
+8,sexo,20,1,1,Cabe
+9,entidad_nac,50,2,2,Cabe
+10,entidad_res,50,2,2,Cabe
+11,municipio_res,50,3,3,Cabe
+12,localidad_res,50,4,4,Cabe
+13,tipo_paciente,20,1,1,Cabe
+14,fecha_ingreso,50,10,10,Cabe
+15,fecha_sintomas,50,10,10,Cabe
+16,fecha_def,50,10,10,Cabe
+17,intubado,20,2,2,Cabe
+18,neumonia,20,1,1,Cabe
+19,edad,20,3,3,Cabe
+20,nacionalidad,50,1,1,Cabe
+21,embarazo,20,2,2,Cabe
+22,habla_lengua_indig,20,2,2,Cabe
+23,indigena,20,2,2,Cabe
+24,diabetes,20,2,2,Cabe
+25,epoc,20,2,2,Cabe
+26,asma,20,2,2,Cabe
+27,inmusupr,20,2,2,Cabe
+28,hipertension,20,2,2,Cabe
+29,otra_com,20,2,2,Cabe
+30,cardiovascular,20,2,2,Cabe
+31,obesidad,20,2,2,Cabe
+32,renal_cronica,20,2,2,Cabe
+33,tabaquismo,20,2,2,Cabe
+34,otro_caso,20,2,2,Cabe
+35,toma_muestra_lab,20,1,1,Cabe
+36,resultado_lab,20,2,2,Cabe
+37,toma_muestra_antigeno,20,1,1,Cabe
+38,resultado_antigeno,20,2,2,Cabe
+39,clasificacion_final,20,1,1,Cabe
+40,fecha_resultado,,,10,La columna no está en el ejemplo
+41,migrante,20,3,2,Cabe
+42,pais_nacionalidad,100,54,36,Cabe
+43,pais_origen,50,54,25,NO CABE: la carga falla o trunca
+44,uci,20,2,2,Cabe

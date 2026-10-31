@@ -1,0 +1,38 @@
+[
+ {
+  "archivo": "muestra200k_COVID19MEXICOLOC2022.csv",
+  "bytes": 686356922,
+  "lineas_fisicas": 3999997,
+  "filas_de_datos": 3999996,
+  "termina_con_salto_de_linea": false,
+  "lf_sin_cr": 0,
+  "columnas_encabezado": 41,
+  "campos_por_fila": {
+   "41": 3999995,
+   "81": 1
+  },
+  "filas_irregulares": [
+   {
+    "linea": 1999999,
+    "campos": 81,
+    "inicio": "\"2023-06-01\",\"g0d983c\",2,9,\"09\",1,\"09\",\"09\",\"007\",\"0001\",1,\"",
+    "fin": "ON_FINAL\",\"MIGRANTE\",\"PAIS_NACIONALIDAD\",\"PAIS_ORIGEN\",\"UCI\""
+   }
+  ],
+  "encabezado_repetido_en_byte": 343178461,
+  "mitades_identicas": true
+ },
+ {
+  "archivo": "muestra100k_COVID19MEXICOLOC2023.csv",
+  "bytes": 20258324,
+  "lineas_fisicas": 100000,
+  "filas_de_datos": 99999,
+  "termina_con_salto_de_linea": false,
+  "lf_sin_cr": 0,
+  "columnas_encabezado": 44,
+  "campos_por_fila": {
+   "44": 99999
+  },
+  "filas_irregulares": []
+ }
+]

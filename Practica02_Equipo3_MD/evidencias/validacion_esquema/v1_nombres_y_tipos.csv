@@ -1,0 +1,46 @@
+pos,columna_tabla,tipo_en_covid_historica,nombre_en_diccionario,formato_en_diccionario,resultado
+1,fecha_actualizacion,date,FECHA_ACTUALIZACION,AAAA-MM-DD,Coincide
+2,id_registro,text,ID_REGISTRO,TEXTO,Coincide
+3,origen,smallint,ORIGEN,CATÁLOGO: ORIGEN,Coincide
+4,sector,smallint,SECTOR,CATÁLOGO: SECTOR,Coincide
+5,entidad_um,smallint,ENTIDAD_UM,CATALÓGO: ENTIDADES,Coincide
+6,municipio_um,smallint,,,No está en el diccionario de 2020
+7,clues,text,,,No está en el diccionario de 2020
+8,sexo,smallint,SEXO,CATÁLOGO: SEXO,Coincide
+9,entidad_nac,smallint,ENTIDAD_NAC,CATALÓGO: ENTIDADES,Coincide
+10,entidad_res,smallint,ENTIDAD_RES,CATALÓGO: ENTIDADES,Coincide
+11,municipio_res,smallint,MUNICIPIO_RES,CATALÓGO: MUNICIPIOS,Coincide
+12,localidad_res,integer,,,No está en el diccionario de 2020
+13,tipo_paciente,smallint,TIPO_PACIENTE,CATÁLOGO: TIPO_PACIENTE,Coincide
+14,fecha_ingreso,date,FECHA_INGRESO,AAAA-MM-DD,Coincide
+15,fecha_sintomas,date,FECHA_SINTOMAS,AAAA-MM-DD,Coincide
+16,fecha_def,date,FECHA_DEF,AAAA-MM-DD,Coincide
+17,intubado,smallint,INTUBADO,CATÁLOGO: SI_ NO,Coincide
+18,neumonia,smallint,NEUMONIA,CATÁLOGO: SI_ NO,Coincide
+19,edad,smallint,EDAD,NÚMERICA EN AÑOS,Coincide
+20,nacionalidad,smallint,NACIONALIDAD,CATÁLOGO: NACIONALIDAD,Coincide
+21,embarazo,smallint,EMBARAZO,CATÁLOGO: SI_ NO,Coincide
+22,habla_lengua_indig,smallint,HABLA_LENGUA_INDIG,CATÁLOGO: SI_ NO,Coincide
+23,indigena,smallint,INDIGENA,CATÁLOGO: SI_ NO,Coincide
+24,diabetes,smallint,DIABETES,CATÁLOGO: SI_ NO,Coincide
+25,epoc,smallint,EPOC,CATÁLOGO: SI_ NO,Coincide
+26,asma,smallint,ASMA,CATÁLOGO: SI_ NO,Coincide
+27,inmusupr,smallint,INMUSUPR,CATÁLOGO: SI_ NO,Coincide
+28,hipertension,smallint,HIPERTENSION,CATÁLOGO: SI_ NO,Coincide
+29,otra_com,smallint,OTRAS_COM,CATÁLOGO: SI_ NO,Sinónimo: nombre distinto
+30,cardiovascular,smallint,CARDIOVASCULAR,CATÁLOGO: SI_ NO,Coincide
+31,obesidad,smallint,OBESIDAD,CATÁLOGO: SI_ NO,Coincide
+32,renal_cronica,smallint,RENAL_CRONICA,CATÁLOGO: SI_ NO,Coincide
+33,tabaquismo,smallint,TABAQUISMO,CATÁLOGO: SI_ NO,Coincide
+34,otro_caso,smallint,OTRO_CASO,CATÁLOGO: SI_ NO,Coincide
+35,toma_muestra_lab,smallint,TOMA_MUESTRA_LAB,CATÁLOGO: SI_ NO,Coincide
+36,resultado_lab,smallint,RESULTADO_LAB,CATÁLOGO: RESULTADO_LAB,Coincide
+37,toma_muestra_antigeno,smallint,TOMA_MUESTRA_ANTIGENO,CATÁLOGO: SI_ NO,Coincide
+38,resultado_antigeno,smallint,RESULTADO_ANTIGENO,CATÁLOGO: RESULTADO_ANTIGENO,Coincide
+39,clasificacion_final,smallint,CLASIFICACION_FINAL,CATÁLOGO: CLASIFICACION_FINAL,Coincide
+40,fecha_resultado,date,,,No está en el diccionario de 2020
+41,migrante,smallint,MIGRANTE,CATÁLOGO: SI_ NO,Coincide
+42,pais_nacionalidad,text,PAIS_NACIONALIDAD,"TEXTO, 99= SE IGNORA",Coincide
+43,pais_origen,text,PAIS_ORIGEN,"TEXTO, 97= NO APLICA",Coincide
+44,uci,smallint,UCI,CATÁLOGO: SI_ NO,Coincide
+45,archivo_origen,text,,,Columna de linaje agregada en la carga

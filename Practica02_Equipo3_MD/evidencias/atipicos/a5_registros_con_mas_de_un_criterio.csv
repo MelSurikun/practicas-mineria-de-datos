@@ -1,0 +1,11 @@
+criterios,registros
+sintomas_a_ingreso_extremo + sintomas_fuera_de_ventana_10_dias,331
+edad_nacimiento_1900 + edad_tukey_3_iqr + edad_z_mad_mayor_3_5 + sintomas_a_ingreso_extremo + sintomas_fuera_de_ventana_10_dias,24
+edad_z_mad_mayor_3_5 + sintomas_fuera_de_ventana_10_dias,12
+edad_nacimiento_1900 + edad_tukey_3_iqr + edad_z_mad_mayor_3_5,10
+defuncion_antes_del_ingreso + sintomas_fuera_de_ventana_10_dias,2
+defuncion_antes_de_sintomas + defuncion_antes_del_ingreso,1
+embarazo_menor_de_10 + tabaquismo_menor_de_10,1
+ingreso_a_defuncion_extremo + sintomas_fuera_de_ventana_10_dias,1
+resultado_antes_del_ingreso + sintomas_fuera_de_ventana_10_dias,1
+sintomas_fuera_de_ventana_10_dias + tabaquismo_menor_de_10,1
