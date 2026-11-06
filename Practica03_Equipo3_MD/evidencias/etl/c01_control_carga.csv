@@ -1,0 +1,17 @@
+paso,etapa,tabla,filas_origen,filas_destino,diferencia,segundos,nota
+3,Extracción,public.covid_historica,,2099997,,0.00,Sin filtros de filas: lo dudoso se marca en dim_calidad
+9,Carga de dimensiones,dw.dim_tiempo,,732,,0.09,Generada: 730 días y 2 miembros especiales
+9,Carga de dimensiones,dw.dim_ubicacion,2501,2502,1,1.10,Catálogo completo más miembros inferidos
+9,Carga de dimensiones,dw.dim_entidad,36,36,0,0.60,Catálogo completo
+9,Carga de dimensiones,dw.dim_unidad_medica,2481,2481,0,0.85,
+9,Carga de dimensiones,dw.dim_paciente,87,87,0,1.33,
+9,Carga de dimensiones,dw.dim_pais,159,159,0,3.44,
+9,Carga de dimensiones,dw.dim_edad,123,123,0,0.77,
+9,Carga de dimensiones,dw.dim_comorbilidad,1315,1315,0,1.46,
+9,Carga de dimensiones,dw.dim_atencion,25,25,0,1.19,
+9,Carga de dimensiones,dw.dim_diagnostico,66,66,0,1.23,
+9,Carga de dimensiones,dw.dim_extracto,2,2,0,5.17,
+9,Carga de dimensiones,dw.dim_calidad,23,23,0,2.66,
+10,Preparación de hechos,dw.fact_casos_covid,,0,,0.32,"Vacía, sin llaves foráneas ni índices secundarios"
+10,Carga de hechos,dw.fact_casos_covid,2099997,2099997,0,94.58,
+10,Llaves foráneas e índices,dw.fact_casos_covid,,2099997,,15.50,"16 llaves validadas, 3 índices y VACUUM"

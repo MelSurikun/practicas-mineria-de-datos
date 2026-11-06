@@ -1,0 +1,2 @@
+tabla_origen,filas,columnas,columnas_usadas,columna_excluida,filtros_de_filas
+public.covid_historica,2099997,45,44,localidad_res,ninguno

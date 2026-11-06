@@ -1,0 +1,10 @@
+medida,modelo,origen
+casos,2099997,2099997
+"confirmados (clasificación 1, 2, 3)",882022,882022
+hospitalizados (tipo_paciente = 2),101630,101630
+ingresos a UCI (uci = 1),3830,3830
+intubados (intubado = 1),4551,4551
+con neumonía (neumonia = 1),38551,38551
+defunciones (fecha_def con valor),17559,17559
+"edad promedio, edades válidas",37.5588,37.5588
+demora síntomas-ingreso promedio (días),1.9307,1.9307

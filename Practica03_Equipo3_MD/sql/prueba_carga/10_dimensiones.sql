@@ -373,11 +373,14 @@ END $$;
 
 -- Lo que no está en covid_historica (filas del CSV, columnas, periodo) viene de la
 -- inspección de la Práctica 2 (Tablas 2 y 13 del reporte).
+-- Según cómo se haya cargado la P2, el archivo de 2022 aparece con o sin la etiqueta
+-- " (reparado)". Se compara sin ella y se guarda el nombre tal como está en el origen
+-- (error 1 de evidencias/bitacora_errores_p3.md; corrección de Melanie).
 INSERT INTO dw.dim_extracto (archivo_origen, fecha_actualizacion, anio_nominal, columnas_csv, trae_unidad_y_resultado,
                              filas_csv, casos_unicos, fecha_sintomas_min, fecha_sintomas_max, periodo_efectivo)
 SELECT h.archivo_origen,
        min(h.fecha_actualizacion),
-       substring(h.archivo_origen FROM '(20[0-9]{2})\.csv$')::smallint,   -- el año pegado a ".csv"
+       substring(h.archivo_origen FROM '(20[0-9]{2})\.csv')::smallint,   -- el año pegado a ".csv"
        p.columnas_csv,
        p.columnas_csv = 44,
        p.filas_csv,
@@ -388,7 +391,8 @@ SELECT h.archivo_origen,
 FROM public.covid_historica h
 JOIN (VALUES ('muestra200k_COVID19MEXICOLOC2022.csv', 41::smallint, 3999996, 'ENERO A JUNIO DE 2022 (99.99% DE LOS CASOS)'),
              ('muestra100k_COVID19MEXICOLOC2023.csv', 44::smallint,   99999, 'ENERO DE 2023 (99.91% DE LOS CASOS)'))
-     AS p (archivo_origen, columnas_csv, filas_csv, periodo_efectivo) ON p.archivo_origen = h.archivo_origen
+     AS p (archivo_origen, columnas_csv, filas_csv, periodo_efectivo)
+     ON p.archivo_origen = replace(h.archivo_origen, ' (reparado)', '')
 GROUP BY h.archivo_origen, p.columnas_csv, p.filas_csv, p.periodo_efectivo
 ORDER BY 3;
 

@@ -10,6 +10,11 @@ Entregable_Profesor/
 
 # De la PRACTICA03 (el reporte solo se pone en Drive)
 Practica03_Equipo3_MD/**/*.docx
+Practica03_Equipo3_MD/temp
+Practica03_Equipo3_MD/graficas
+# Provisional
+Practica03_Equipo3_MD/entregables_profesor/
+
 
 # Archivos que puedan contener contraseñas o credenciales
 *.env

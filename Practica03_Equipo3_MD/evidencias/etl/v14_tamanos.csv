@@ -1,0 +1,4 @@
+objeto,bytes_tabla,bytes_con_indices,bytes_promedio_por_fila
+public.covid_historica,433061888,480403456,200.2
+dw.fact_casos_covid,264658944,417275904,114.0
+las 12 dimensiones de dw,933888,2179072,

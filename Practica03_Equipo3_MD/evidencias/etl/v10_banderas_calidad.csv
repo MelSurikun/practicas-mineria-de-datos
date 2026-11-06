@@ -1,0 +1,15 @@
+bandera,nivel,casos
+edad_no_valida,ERROR,34
+fechas_en_desorden,ERROR,9
+municipio_fuera_catalogo,ERROR,1
+entidad_nac_inconsistente,ERROR,27186
+clues_ficticia,ERROR,36
+sintomas_mas_de_10_dias,POR REVISAR,18725
+demora_extrema,POR REVISAR,355
+embarazo_edad_atipica,POR REVISAR,117
+tabaquismo_menor_10,POR REVISAR,116
+defuncion_ambulatoria,POR REVISAR,22
+intubado_sin_uci,POR REVISAR,2871
+(casos con nivel máximo ERROR),,27266
+(casos con nivel máximo POR REVISAR),,21543
+(casos sin banderas),,2051188

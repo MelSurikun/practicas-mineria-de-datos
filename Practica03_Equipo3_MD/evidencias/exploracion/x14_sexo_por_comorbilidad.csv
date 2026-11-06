@@ -1,0 +1,21 @@
+sexo_desc,comorbilidad,denominador,prevalencia
+HOMBRE,Asma,927519,1.42
+MUJER,Asma,1160200,2.15
+HOMBRE,Cardiovascular,927497,0.98
+MUJER,Cardiovascular,1160192,0.83
+HOMBRE,Diabetes,927434,5.77
+MUJER,Diabetes,1160046,6.30
+HOMBRE,EPOC,927492,0.62
+MUJER,EPOC,1160171,0.57
+HOMBRE,Hipertensión,927502,7.93
+MUJER,Hipertensión,1160189,8.89
+HOMBRE,Inmunosupresión,927482,0.53
+MUJER,Inmunosupresión,1160213,0.55
+HOMBRE,Obesidad,927889,5.06
+MUJER,Obesidad,1160548,6.26
+HOMBRE,Otra,926391,0.98
+MUJER,Otra,1158918,1.36
+HOMBRE,Renal crónica,927510,1.01
+MUJER,Renal crónica,1160175,0.72
+HOMBRE,Tabaquismo,927471,5.96
+MUJER,Tabaquismo,1160151,3.07

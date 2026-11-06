@@ -1,0 +1,369 @@
+SET
+El paginador no se usar�.
+Cargando el modelo en la base covid20a23sedi
+Paso 1 de 5: tablas cat_* (no toca las que ya existen)
+SET
+psql:sql/modelo/00_catalogos.sql:32: NOTICE:  la relación «cat_entidades» ya existe, omitiendo
+CREATE TABLE
+psql:sql/modelo/00_catalogos.sql:39: NOTICE:  la relación «cat_municipios» ya existe, omitiendo
+CREATE TABLE
+psql:sql/modelo/00_catalogos.sql:41: NOTICE:  la relación «cat_sector» ya existe, omitiendo
+CREATE TABLE
+psql:sql/modelo/00_catalogos.sql:42: NOTICE:  la relación «cat_origen» ya existe, omitiendo
+CREATE TABLE
+psql:sql/modelo/00_catalogos.sql:43: NOTICE:  la relación «cat_sexo» ya existe, omitiendo
+CREATE TABLE
+psql:sql/modelo/00_catalogos.sql:44: NOTICE:  la relación «cat_tipo_paciente» ya existe, omitiendo
+CREATE TABLE
+psql:sql/modelo/00_catalogos.sql:45: NOTICE:  la relación «cat_si_no» ya existe, omitiendo
+CREATE TABLE
+psql:sql/modelo/00_catalogos.sql:46: NOTICE:  la relación «cat_nacionalidad» ya existe, omitiendo
+CREATE TABLE
+psql:sql/modelo/00_catalogos.sql:47: NOTICE:  la relación «cat_resultado_lab» ya existe, omitiendo
+CREATE TABLE
+psql:sql/modelo/00_catalogos.sql:48: NOTICE:  la relación «cat_resultado_antigeno» ya existe, omitiendo
+CREATE TABLE
+psql:sql/modelo/00_catalogos.sql:49: NOTICE:  la relación «cat_clasificacion_final» ya existe, omitiendo
+CREATE TABLE
+psql:sql/modelo/00_catalogos.sql:56: NOTICE:  la relación «cat_pais_normalizacion» ya existe, omitiendo
+CREATE TABLE
+        catalogo         | filas 
+-------------------------+-------
+ cat_entidades           |    36
+ cat_municipios          |  2501
+ cat_sector              |    14
+ cat_origen              |     3
+ cat_sexo                |     3
+ cat_tipo_paciente       |     3
+ cat_si_no               |     5
+ cat_nacionalidad        |     3
+ cat_resultado_lab       |     5
+ cat_resultado_antigeno  |     3
+ cat_clasificacion_final |     7
+ cat_pais_normalizacion  |    18
+(12 filas)
+
+Paso 2 de 5: esquema dw con sus 13 tablas
+SET
+psql:sql/modelo/01_esquema_dw.sql:33: NOTICE:  eliminando además 13 objetos más
+DETALLE:  eliminando además tabla dw.dim_tiempo
+eliminando además tabla dw.dim_ubicacion
+eliminando además tabla dw.dim_entidad
+eliminando además tabla dw.dim_unidad_medica
+eliminando además tabla dw.dim_paciente
+eliminando además tabla dw.dim_pais
+eliminando además tabla dw.dim_edad
+eliminando además tabla dw.dim_comorbilidad
+eliminando además tabla dw.dim_atencion
+eliminando además tabla dw.dim_diagnostico
+eliminando además tabla dw.dim_extracto
+eliminando además tabla dw.dim_calidad
+eliminando además tabla dw.fact_casos_covid
+DROP SCHEMA
+CREATE SCHEMA
+COMMENT
+CREATE TABLE
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+Paso 3 de 5: las 12 dimensiones
+SET
+El despliegue de duraci�n est� activado.
+BEGIN
+Duraci�n: 0.064 ms
+TRUNCATE TABLE
+Duraci�n: 43.052 ms
+INSERT 0 2
+Duraci�n: 2.418 ms
+INSERT 0 730
+Duraci�n: 13.008 ms
+INSERT 0 2501
+Duraci�n: 19.226 ms
+INSERT 0 1
+Duraci�n: 1732.929 ms (00:01.733)
+INSERT 0 36
+Duraci�n: 2.846 ms
+INSERT 0 0
+Duraci�n: 592.866 ms
+INSERT 0 2481
+Duraci�n: 825.015 ms
+INSERT 0 87
+Duraci�n: 1299.192 ms (00:01.299)
+INSERT 0 159
+Duraci�n: 2770.657 ms (00:02.771)
+INSERT 0 123
+Duraci�n: 711.725 ms
+INSERT 0 1315
+Duraci�n: 1515.092 ms (00:01.515)
+INSERT 0 25
+Duraci�n: 1262.104 ms (00:01.262)
+INSERT 0 66
+Duraci�n: 1335.161 ms (00:01.335)
+DO
+Duraci�n: 2541.991 ms (00:02.542)
+INSERT 0 1
+Duraci�n: 1003.968 ms (00:01.004)
+psql:sql/prueba_carga/10_dimensiones.sql:400: NOTICE:  el esquema «etl» ya existe, omitiendo
+CREATE SCHEMA
+Duraci�n: 0.301 ms
+CREATE VIEW
+Duraci�n: 3.711 ms
+COMMENT
+Duraci�n: 0.197 ms
+INSERT 0 23
+Duraci�n: 2747.441 ms (00:02.747)
+COMMIT
+Duraci�n: 35.391 ms
+VACUUM
+Duraci�n: 234.715 ms
+     dimension     | filas 
+-------------------+-------
+ dim_tiempo        |   732
+ dim_ubicacion     |  2502
+ dim_entidad       |    36
+ dim_unidad_medica |  2481
+ dim_paciente      |    87
+ dim_pais          |   159
+ dim_edad          |   123
+ dim_comorbilidad  |  1315
+ dim_atencion      |    25
+ dim_diagnostico   |    66
+ dim_extracto      |     1
+ dim_calidad       |    23
+(12 filas)
+
+Duraci�n: 17.076 ms
+Paso 4 de 5: tabla de hechos, 2.1 millones de casos
+SET
+Duraci�n: 0.124 ms
+El despliegue de duraci�n est� activado.
+BEGIN
+Duraci�n: 0.091 ms
+psql:sql/prueba_carga/11_hechos.sql:43: NOTICE:  no existe la restricción «fk_fact_fecha_sintomas» en la relación «fact_casos_covid», omitiendo
+psql:sql/prueba_carga/11_hechos.sql:43: NOTICE:  no existe la restricción «fk_fact_fecha_ingreso» en la relación «fact_casos_covid», omitiendo
+psql:sql/prueba_carga/11_hechos.sql:43: NOTICE:  no existe la restricción «fk_fact_fecha_resultado» en la relación «fact_casos_covid», omitiendo
+psql:sql/prueba_carga/11_hechos.sql:43: NOTICE:  no existe la restricción «fk_fact_fecha_defuncion» en la relación «fact_casos_covid», omitiendo
+psql:sql/prueba_carga/11_hechos.sql:43: NOTICE:  no existe la restricción «fk_fact_ubicacion_residencia» en la relación «fact_casos_covid», omitiendo
+psql:sql/prueba_carga/11_hechos.sql:43: NOTICE:  no existe la restricción «fk_fact_entidad_nacimiento» en la relación «fact_casos_covid», omitiendo
+psql:sql/prueba_carga/11_hechos.sql:43: NOTICE:  no existe la restricción «fk_fact_unidad_medica» en la relación «fact_casos_covid», omitiendo
+psql:sql/prueba_carga/11_hechos.sql:43: NOTICE:  no existe la restricción «fk_fact_paciente» en la relación «fact_casos_covid», omitiendo
+psql:sql/prueba_carga/11_hechos.sql:43: NOTICE:  no existe la restricción «fk_fact_pais_nacionalidad» en la relación «fact_casos_covid», omitiendo
+psql:sql/prueba_carga/11_hechos.sql:43: NOTICE:  no existe la restricción «fk_fact_pais_origen» en la relación «fact_casos_covid», omitiendo
+psql:sql/prueba_carga/11_hechos.sql:43: NOTICE:  no existe la restricción «fk_fact_edad» en la relación «fact_casos_covid», omitiendo
+psql:sql/prueba_carga/11_hechos.sql:43: NOTICE:  no existe la restricción «fk_fact_comorbilidad» en la relación «fact_casos_covid», omitiendo
+psql:sql/prueba_carga/11_hechos.sql:43: NOTICE:  no existe la restricción «fk_fact_atencion» en la relación «fact_casos_covid», omitiendo
+psql:sql/prueba_carga/11_hechos.sql:43: NOTICE:  no existe la restricción «fk_fact_diagnostico» en la relación «fact_casos_covid», omitiendo
+psql:sql/prueba_carga/11_hechos.sql:43: NOTICE:  no existe la restricción «fk_fact_extracto» en la relación «fact_casos_covid», omitiendo
+psql:sql/prueba_carga/11_hechos.sql:43: NOTICE:  no existe la restricción «fk_fact_calidad» en la relación «fact_casos_covid», omitiendo
+ALTER TABLE
+Duraci�n: 1.321 ms
+psql:sql/prueba_carga/11_hechos.sql:44: NOTICE:  el índice «ix_fact_fecha_sintomas» no existe, omitiendo
+DROP INDEX
+Duraci�n: 0.262 ms
+psql:sql/prueba_carga/11_hechos.sql:45: NOTICE:  el índice «ix_fact_fecha_ingreso» no existe, omitiendo
+DROP INDEX
+Duraci�n: 0.215 ms
+psql:sql/prueba_carga/11_hechos.sql:46: NOTICE:  el índice «ix_fact_ubicacion» no existe, omitiendo
+DROP INDEX
+Duraci�n: 0.202 ms
+TRUNCATE TABLE
+Duraci�n: 3.775 ms
+psql:sql/prueba_carga/11_hechos.sql:131: ERROR:  el valor nulo en la columna «id_extracto» de la relación «fact_casos_covid» viola la restricción de no nulo
+DETALLE:  La fila que falla contiene (1, 1208dc, 20220101, 20220101, -2, -2, 1018, 19, 195, 74, 97, 1, 21, 2, 7, 51, null, 1, 1, 0, 1, 0, 0, 0, 0, 21, 0, null, null).
+Duraci�n: 49977.042 ms (00:49.977)

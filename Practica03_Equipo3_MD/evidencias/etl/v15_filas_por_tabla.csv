@@ -1,0 +1,14 @@
+tabla,filas,tamano,descripcion
+fact_casos_covid,2099997,398 MB,"Un caso por fila (grano: ID_REGISTRO), con llaves a 12 dimensiones y 11 medidas. Instantánea acumulativa: los hitos del caso son cuatro fechas."
+dim_atencion,25,72 kB,"Cómo se vigiló y atendió el caso: origen de la vigilancia, tipo de paciente, neumonía, intubación y UCI. Una fila por combinación observada."
+dim_calidad,23,72 kB,"Banderas de calidad del caso, de las reglas de la Práctica 2: una fila por combinación observada. Permite excluir o estudiar los registros dudosos sin borrarlos."
+dim_comorbilidad,1315,320 kB,"Comorbilidades y tabaquismo: una fila por combinación observada de las 10 banderas SI_NO (1,315). Es el catálogo de comorbilidades con valores únicos que sugiere el enunciado."
+dim_diagnostico,66,80 kB,"Ruta diagnóstica del caso: contacto con otro caso, muestras, resultados y clasificación final. Una fila por combinación observada (66)."
+dim_edad,123,80 kB,Edad en años con sus grupos. Una fila por edad observada (0 a 122).
+dim_entidad,36,72 kB,"Entidad de nacimiento del paciente. Versión resumida (rollup) y conformada de dim_ubicacion: mismas claves y nombres de entidad, sin el nivel municipio, que ENTIDAD_NAC no tiene."
+dim_extracto,2,72 kB,"Archivo del que viene cada caso (linaje). FECHA_ACTUALIZACION depende solo del archivo, así que vive aquí y no se repite en 2.1 millones de filas."
+dim_paciente,87,80 kB,"Perfil demográfico del paciente: una fila por combinación observada de seis atributos de catálogo (dimensión basura o mini-dimensión). 87 combinaciones en 2,099,997 casos."
+dim_pais,159,80 kB,"País, normalizado. Una fila por valor de texto distinto de PAIS_NACIONALIDAD o PAIS_ORIGEN (159). Se usa dos veces: nacionalidad y país de origen."
+dim_tiempo,732,192 kB,"Calendario diario 2022-2023 más dos miembros especiales. Se usa cuatro veces en la tabla de hechos: síntomas, ingreso, resultado y defunción."
+dim_ubicacion,2502,392 kB,"Municipio de residencia del paciente. Una fila por municipio del catálogo oficial (2,501, con el 999 NO ESPECIFICADO de cada entidad) más los miembros inferidos fuera de catálogo."
+dim_unidad_medica,2481,616 kB,"Unidad médica que atendió el caso. En 2023, una fila por CLUES (2,269), que determina sector, entidad y municipio. En 2022 no hay CLUES: una fila por par sector-entidad (212), marcada como unidad no identificada."
